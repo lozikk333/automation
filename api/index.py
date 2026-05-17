@@ -13,6 +13,9 @@ if not (PROJECT_DIR / "main.py").is_file():
         "commit it as regular source files or configure a real git submodule."
     )
 
+for runtime_dir in ("data", "logs", "pins", "generated_sites"):
+    (PROJECT_DIR / runtime_dir).mkdir(parents=True, exist_ok=True)
+
 os.chdir(PROJECT_DIR)
 sys.path[:0] = [str(PROJECT_DIR), str(ROOT_DIR)]
 
