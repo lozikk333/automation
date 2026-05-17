@@ -1,0 +1,12 @@
+[build]
+  command = "python --version"
+  publish = "content-automation-system/static"
+
+[build.environment]
+  PYTHON_VERSION = "3.11.9"
+
+[[redirects]]
+  from = "/*"
+  to = "https://automation-tool-three.vercel.app/:splat"
+  status = 200
+  force = true

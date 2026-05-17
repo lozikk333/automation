@@ -1,0 +1,10 @@
+content-automation-system/venv
+content-automation-system/__pycache__
+content-automation-system/**/__pycache__
+content-automation-system/data/*.db
+content-automation-system/data/test*.db
+content-automation-system/logs
+.git
+.DS_Store
+content-automation-system/.env
+content-automation-system/credentials.json
