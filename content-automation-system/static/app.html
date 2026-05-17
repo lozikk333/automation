@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Content Automation Admin</title>
+  <link rel="stylesheet" href="/static/app.css?v=20260503-website-style-preview" />
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="/">
+      <span class="brand-mark">CA</span>
+      <span>
+        <strong>Automation</strong>
+        <small>Admin Console</small>
+      </span>
+    </a>
+    <nav id="nav"></nav>
+    <div class="sidebar-foot">
+      <span id="socket-dot" class="dot"></span>
+      <span id="socket-label">Polling</span>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow" id="page-kicker">Operations</p>
+        <h1 id="page-title">Dashboard</h1>
+      </div>
+      <div class="top-actions">
+        <button class="icon-btn" id="refresh-page" type="button" aria-label="Refresh dashboard" title="Refresh">↻</button>
+        <button class="btn ghost" data-route="/logs-page">Logs</button>
+        <button class="btn primary" data-route="/new-batch">New Batch</button>
+      </div>
+    </header>
+    <section id="app" class="content"></section>
+  </main>
+
+  <div id="toast" class="toast"></div>
+  <script src="/static/app.js?v=20260503-website-style-preview"></script>
+</body>
+</html>

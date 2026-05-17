@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Choco Kitchen — Content Automation</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --brown:       #b45309;
+      --brown-dark:  #92400e;
+      --brown-deep:  #3b1a08;
+      --cream:       #faf7f4;
+      --border:      #e8ddd6;
+      --muted:       #6b5045;
+      --muted-light: #9b7a6a;
+      --sidebar-w:   220px;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--cream);
+      color: #1a1a1a;
+      min-height: 100vh;
+      display: flex;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      width: var(--sidebar-w);
+      min-height: 100vh;
+      background: var(--brown-deep);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      z-index: 100;
+    }
+
+    .sidebar-logo {
+      padding: 24px 20px 20px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .sidebar-logo .logo-mark {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.5px;
+      line-height: 1.1;
+    }
+    .sidebar-logo .logo-sub {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,.4);
+      margin-top: 3px;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+    }
+
+    .sidebar-nav {
+      padding: 16px 0;
+      flex: 1;
+    }
+    .nav-section-label {
+      padding: 8px 20px 4px;
+      font-size: 0.62rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: rgba(255,255,255,.28);
+    }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 20px;
+      color: rgba(255,255,255,.65);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      border-left: 3px solid transparent;
+      transition: all .15s;
+    }
+    .nav-item:hover { color: #fff; background: rgba(255,255,255,.06); }
+    .nav-item.active { color: #fff; border-left-color: var(--brown); background: rgba(180,83,9,.18); }
+    .nav-item .nav-icon { font-size: 1rem; width: 18px; text-align: center; }
+
+    .sidebar-footer {
+      padding: 16px 20px;
+      border-top: 1px solid rgba(255,255,255,.08);
+      font-size: 0.7rem;
+      color: rgba(255,255,255,.3);
+    }
+
+    /* ── MAIN CONTENT ── */
+    .main {
+      margin-left: var(--sidebar-w);
+      flex: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── TOP BAR ── */
+    .topbar {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      padding: 0 32px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .topbar-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--brown-deep);
+    }
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .live-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #16a34a;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+    .live-dot {
+      width: 7px; height: 7px;
+      background: #16a34a; border-radius: 50%;
+      animation: livepulse 1.5s ease-in-out infinite;
+    }
+    @keyframes livepulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.8)} }
+
+    /* ── PAGE BODY ── */
+    .page-body {
+      padding: 28px 32px 60px;
+      flex: 1;
+    }
+
+    /* ── STATS ROW ── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 20px;
+    }
+    .stat-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .7px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .stat-value {
+      font-size: 1.9rem;
+      font-weight: 800;
+      color: var(--brown-deep);
+      line-height: 1;
+    }
+    .stat-sub {
+      font-size: 0.72rem;
+      color: var(--muted-light);
+      margin-top: 4px;
+    }
+    .stat-card.green .stat-value { color: #15803d; }
+    .stat-card.amber .stat-value { color: #b45309; }
+    .stat-card.red   .stat-value { color: #dc2626; }
+
+    /* ── GRID LAYOUT ── */
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .card-header {
+      padding: 18px 22px 14px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .card-header h2 {
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .6px;
+      color: var(--muted);
+    }
+    .card-body { padding: 20px 22px; }
+
+    /* ── FORM ELEMENTS ── */
+    label.field-label {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    select, textarea {
+      width: 100%;
+      padding: 10px 12px;
+      font-size: 0.9rem;
+      font-family: inherit;
+      border: 1px solid #d4c5bb;
+      border-radius: 8px;
+      background: #fff;
+      color: #1a1a1a;
+      outline: none;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    select:focus, textarea:focus {
+      border-color: var(--brown);
+      box-shadow: 0 0 0 3px rgba(180,83,9,.08);
+    }
+    textarea {
+      resize: vertical;
+      min-height: 110px;
+      line-height: 1.6;
+    }
+    .field-hint {
+      font-size: 0.72rem;
+      color: var(--muted-light);
+      margin-top: 5px;
+    }
+    .field-error {
+      font-size: 0.72rem;
+      color: #dc2626;
+      margin-top: 4px;
+      display: none;
+    }
+
+    /* ── BUTTONS ── */
+    button {
+      padding: 10px 18px;
+      font-size: 0.87rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background .15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+    .btn-primary { background: var(--brown); color: #fff; }
+    .btn-primary:hover:not(:disabled) { background: var(--brown-dark); }
+    .btn-primary:disabled { background: #c9896a; cursor: not-allowed; }
+    .btn-secondary { background: #f3ede8; color: var(--brown-deep); }
+    .btn-secondary:hover { background: var(--border); }
+    .btn-sm { padding: 7px 13px; font-size: 0.8rem; }
+    .btn-xs { padding: 4px 9px; font-size: 0.72rem; }
+
+    .spinner {
+      display: inline-block;
+      width: 13px; height: 13px;
+      border: 2px solid rgba(255,255,255,.35);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── STATUS BOXES ── */
+    .status-box {
+      border-radius: 10px;
+      padding: 14px 16px;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      margin-top: 14px;
+    }
+    .status-box.info    { background: #fef3c7; border-left: 4px solid #d97706; }
+    .status-box.success { background: #f0fdf4; border-left: 4px solid #16a34a; color: #14532d; }
+    .status-box.error   { background: #fef2f2; border-left: 4px solid #dc2626; color: #7f1d1d; }
+    .status-box.pending { background: #eff6ff; border-left: 4px solid #3b82f6; }
+
+    /* ── KV ROWS ── */
+    .kv { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid rgba(0,0,0,.05); }
+    .kv:last-child { border-bottom: none; }
+    .kv .k { color: var(--muted); font-size: 0.8rem; }
+    .kv .v { font-size: 0.8rem; font-weight: 600; max-width: 60%; text-align: right; word-break: break-all; }
+    .section-label {
+      font-weight: 700; text-transform: uppercase;
+      font-size: 0.68rem; letter-spacing: .6px; margin-bottom: 6px;
+    }
+
+    /* ── BADGES ── */
+    .badge {
+      display: inline-block; padding: 2px 9px;
+      border-radius: 999px; font-size: 0.72rem; font-weight: 700;
+    }
+    .badge.completed  { background: #dcfce7; color: #166534; }
+    .badge.processing { background: #fef9c3; color: #854d0e; }
+    .badge.pending    { background: #eff6ff; color: #1e40af; }
+    .badge.failed     { background: #fee2e2; color: #991b1b; }
+    .badge.retrying   { background: #fce7f3; color: #9d174d; }
+
+    /* ── JOBS TABLE ── */
+    .jobs-table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    th {
+      text-align: left; padding: 9px 12px;
+      background: #f9f5f2; color: var(--brown-deep);
+      font-weight: 700; font-size: 0.72rem;
+      text-transform: uppercase; letter-spacing: .4px;
+      border-bottom: 1px solid var(--border);
+    }
+    td { padding: 10px 12px; border-bottom: 1px solid #f3ede8; vertical-align: middle; }
+    tbody tr { cursor: pointer; transition: background .1s; }
+    tbody tr:hover td { background: #fdf9f7; }
+    tbody tr:last-child td { border-bottom: none; }
+
+    /* ── JOB DETAIL ── */
+    .job-detail-row td {
+      background: #fdf8f5 !important;
+      padding: 0 !important;
+      cursor: default;
+    }
+    .job-detail-inner {
+      padding: 16px 16px;
+      border-top: 2px solid var(--brown);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 600px) { .job-detail-inner { grid-template-columns: 1fr; } }
+    .detail-section { font-size: 0.8rem; }
+    .detail-section strong {
+      display: block; margin-bottom: 6px;
+      color: var(--brown-deep); font-size: 0.68rem;
+      text-transform: uppercase; letter-spacing: .5px;
+    }
+    .detail-section p { color: var(--muted); line-height: 1.5; }
+    .detail-img {
+      width: 100%; border-radius: 6px;
+      border: 1px solid var(--border);
+      margin-top: 4px; max-height: 160px; object-fit: cover;
+    }
+    .detail-link {
+      display: inline-block; margin-top: 8px;
+      padding: 6px 12px; background: var(--brown);
+      color: #fff; border-radius: 6px;
+      text-decoration: none; font-size: 0.77rem; font-weight: 600;
+    }
+    .detail-link:hover { background: var(--brown-dark); }
+    .link-btn {
+      display: inline-block; margin-top: 10px;
+      padding: 7px 13px; background: var(--brown);
+      color: #fff; border-radius: 6px;
+      text-decoration: none; font-size: 0.8rem; font-weight: 600;
+    }
+    .link-btn:hover { background: var(--brown-dark); }
+
+    /* ── EMPTY STATE ── */
+    .empty-state {
+      padding: 32px 20px; text-align: center;
+      color: var(--muted-light); font-size: 0.85rem;
+    }
+    .empty-state .empty-icon { font-size: 2rem; margin-bottom: 8px; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .sidebar { display: none; }
+      .main { margin-left: 0; }
+      .content-grid { grid-template-columns: 1fr; }
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+      .page-body { padding: 20px 16px 60px; }
+      .topbar { padding: 0 16px; }
+    }
+    @media (max-width: 480px) {
+      .stats-row { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════
+     SIDEBAR
+══════════════════════════════════════════════ -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">🍫 Choco Kitchen</div>
+    <div class="logo-sub">Content Automation</div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Pipeline</div>
+    <a href="/" class="nav-item active">
+      <span class="nav-icon">⚡</span> Dashboard
+    </a>
+    <a href="/console" class="nav-item">
+      <span class="nav-icon">🖥</span> Console
+    </a>
+
+    <div class="nav-section-label" style="margin-top:12px">Settings</div>
+    <a href="/websites-page" class="nav-item">
+      <span class="nav-icon">🌐</span> Websites
+    </a>
+    <a href="/api-keys-page" class="nav-item">
+      <span class="nav-icon">🔑</span> API Keys
+    </a>
+  </nav>
+
+  <div class="sidebar-footer">v1.0 · Keyword → WordPress</div>
+</aside>
+
+<!-- ══════════════════════════════════════════════
+     MAIN
+══════════════════════════════════════════════ -->
+<div class="main">
+
+  <!-- Top bar -->
+  <div class="topbar">
+    <div class="topbar-title">Dashboard</div>
+    <div class="topbar-right">
+      <div class="live-badge">
+        <span class="live-dot"></span> Live
+      </div>
+      <button class="btn-secondary btn-sm" onclick="checkFeed()">📡 RSS</button>
+    </div>
+  </div>
+
+  <div class="page-body">
+
+    <!-- Stats row -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-label">Total Jobs</div>
+        <div class="stat-value" id="stat-total">—</div>
+        <div class="stat-sub">all time</div>
+      </div>
+      <div class="stat-card green">
+        <div class="stat-label">Completed</div>
+        <div class="stat-value" id="stat-completed">—</div>
+        <div class="stat-sub">published</div>
+      </div>
+      <div class="stat-card amber">
+        <div class="stat-label">Processing</div>
+        <div class="stat-value" id="stat-processing">—</div>
+        <div class="stat-sub">in queue</div>
+      </div>
+      <div class="stat-card red">
+        <div class="stat-label">Failed</div>
+        <div class="stat-value" id="stat-failed">—</div>
+        <div class="stat-sub">needs review</div>
+      </div>
+    </div>
+
+    <!-- Content grid -->
+    <div class="content-grid">
+
+      <!-- LEFT: Generate card -->
+      <div>
+        <div class="card">
+          <div class="card-header">
+            <h2>Generate Articles</h2>
+          </div>
+          <div class="card-body">
+
+            <!-- Website selector -->
+            <div style="margin-bottom:16px">
+              <label class="field-label">Target Website <span style="color:#dc2626">*</span></label>
+              <div style="display:flex; gap:8px; align-items:center;">
+                <select id="website-select" style="flex:1">
+                  <option value="">— Select a website —</option>
+                </select>
+                <a href="/websites-page" style="font-size:0.78rem; color:var(--brown); font-weight:600; text-decoration:none; padding:10px 12px; border:1px solid #d4c5bb; border-radius:8px; background:#f3ede8; white-space:nowrap;">+ Add</a>
+              </div>
+              <div id="website-select-error" class="field-error">⚠ Please select a website first.</div>
+            </div>
+
+            <!-- Keywords -->
+            <div style="margin-bottom:16px">
+              <label class="field-label">Keywords</label>
+              <textarea id="keywords" placeholder="One keyword per line:&#10;chocolate lava cake&#10;banana bread&#10;tiramisu"></textarea>
+              <div class="field-hint">One keyword per line — each becomes a separate article. <strong>Cmd+Enter</strong> to run.</div>
+            </div>
+
+            <!-- Actions -->
+            <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+              <button class="btn-primary" id="run-btn" onclick="generate()">
+                <span id="btn-icon">▶</span>
+                <span id="btn-label">Run Pipeline</span>
+              </button>
+            </div>
+
+            <div id="panel"></div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Jobs card -->
+      <div>
+        <div class="card">
+          <div class="card-header">
+            <h2><span class="live-dot" style="display:inline-block;margin-right:6px;"></span>Recent Jobs</h2>
+            <span style="font-size:0.7rem; color:var(--muted-light)">auto-refresh 5s</span>
+          </div>
+          <div class="jobs-table-wrap">
+            <div id="jobs-section">
+              <div class="empty-state">
+                <div class="empty-icon">⏳</div>
+                Loading jobs…
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /content-grid -->
+  </div><!-- /page-body -->
+</div><!-- /main -->
+
+<script>
+// ══════════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════════
+let pollTimer    = null;
+let refreshTimer = null;
+let expandedId   = null;
+
+// ══════════════════════════════════════════════
+//  WEBSITES DROPDOWN
+// ══════════════════════════════════════════════
+async function loadWebsiteSelect() {
+  try {
+    const res  = await fetch('/websites');
+    const data = await res.json();
+    const sel  = document.getElementById('website-select');
+    const sites = data.websites || [];
+    sel.innerHTML = sites.length
+      ? '<option value="">— Select a website —</option>' +
+        sites.map(s => `<option value="${s.id}">${esc(s.name)} — ${esc(s.base_url)}</option>`).join('')
+      : '<option value="">No websites yet — click + Add</option>';
+  } catch (_) {}
+}
+
+// ══════════════════════════════════════════════
+//  GENERATE
+// ══════════════════════════════════════════════
+async function generate() {
+  const websiteId = document.getElementById('website-select').value;
+  const errEl     = document.getElementById('website-select-error');
+
+  if (!websiteId) {
+    errEl.style.display = 'block';
+    document.getElementById('website-select').style.borderColor = '#dc2626';
+    return;
+  }
+  errEl.style.display = 'none';
+  document.getElementById('website-select').style.borderColor = '#d4c5bb';
+
+  const raw      = document.getElementById('keywords').value;
+  const keywords = raw.split('\n').map(k => k.trim()).filter(k => k.length > 0);
+
+  if (!keywords.length) {
+    showPanel('error', '<div class="section-label">Error</div>Enter at least one keyword.');
+    return;
+  }
+
+  setRunning(true);
+  clearPoll();
+  showPanel('pending', '<div class="section-label">Queuing…</div>Sending ' + keywords.length + ' keyword(s) to the pipeline.');
+
+  try {
+    const res  = await fetch('/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ keywords, website_id: parseInt(websiteId) }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.detail || res.statusText);
+
+    if (data.jobs && data.jobs.length === 1) {
+      pollStatus(data.jobs[0].job_id);
+    } else if (data.jobs) {
+      showPanel('info',
+        `<div class="section-label">Batch queued</div>` +
+        data.jobs.map(j => `<div class="kv"><span class="k">${esc(j.keyword)}</span><span class="v">Job #${j.job_id}</span></div>`).join('') +
+        `<div style="margin-top:8px;font-size:.78rem;color:var(--muted)">Jobs run sequentially — watch the table.</div>`
+      );
+      setRunning(false);
+    } else {
+      pollStatus(data.job_id);
+    }
+    loadJobs();
+  } catch (e) {
+    showPanel('error', '<div class="section-label">Error</div>' + esc(e.message));
+    setRunning(false);
+  }
+}
+
+// ══════════════════════════════════════════════
+//  SINGLE-JOB POLLER
+// ══════════════════════════════════════════════
+function pollStatus(jobId) {
+  clearPoll();
+  checkStatus(jobId);
+  pollTimer = setInterval(() => checkStatus(jobId), 5000);
+}
+
+function clearPoll() {
+  if (pollTimer) { clearInterval(pollTimer); pollTimer = null; }
+}
+
+async function checkStatus(jobId) {
+  try {
+    const res  = await fetch(`/status/${jobId}`);
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.detail || res.statusText);
+    renderStatus(data);
+    if (data.status === 'completed' || data.status === 'failed') {
+      clearPoll();
+      setRunning(false);
+      if (data.status === 'completed') loadArtifactsIntoPanel(jobId);
+    }
+  } catch (e) {
+    showPanel('error', esc(e.message));
+    clearPoll();
+    setRunning(false);
+  }
+}
+
+function renderStatus(d) {
+  const cls  = d.status === 'completed' ? 'success' : d.status === 'failed' ? 'error' : 'pending';
+  const icon = d.status === 'completed' ? '✅ Complete' : d.status === 'failed' ? '❌ Failed' : '⏳ Running…';
+  showPanel(cls,
+    `<div class="section-label">${icon}</div>
+     <div class="kv"><span class="k">Job ID</span><span class="v">${d.id}</span></div>
+     <div class="kv"><span class="k">Keyword</span><span class="v">${esc(d.keyword)}</span></div>
+     <div class="kv"><span class="k">Status</span><span class="v">${d.status}</span></div>
+     <div class="kv"><span class="k">Stage</span><span class="v">${d.stage}</span></div>
+     <div class="kv"><span class="k">Updated</span><span class="v">${d.updated_at}</span></div>`
+  );
+}
+
+async function loadArtifactsIntoPanel(jobId) {
+  try {
+    const res  = await fetch(`/artifacts/${jobId}`);
+    const data = await res.json();
+    const a    = data.artifacts || {};
+    let extra  = `<div style="margin-top:12px; border-top:1px solid rgba(0,0,0,.07); padding-top:12px;">`;
+    extra += `<div class="section-label">Published Article</div>`;
+    if (a.article_title) extra += `<div class="kv"><span class="k">Title</span><span class="v">${esc(a.article_title)}</span></div>`;
+    if (a.article_slug)  extra += `<div class="kv"><span class="k">Slug</span><span class="v">${esc(a.article_slug)}</span></div>`;
+    if (a.wp_post_url)   extra += `<a class="link-btn" href="${esc(a.wp_post_url)}" target="_blank">View on WordPress ↗</a>`;
+    extra += `</div>`;
+
+    const panel = document.getElementById('panel');
+    const box   = panel.querySelector('.status-box');
+    if (box) box.innerHTML += extra;
+  } catch (_) {}
+}
+
+// ══════════════════════════════════════════════
+//  JOBS TABLE
+// ══════════════════════════════════════════════
+async function loadJobs() {
+  try {
+    const res  = await fetch('/jobs?limit=20');
+    const data = await res.json();
+    const jobs = data.jobs || [];
+    renderJobs(jobs);
+    updateStats(jobs);
+  } catch (e) {
+    document.getElementById('jobs-section').innerHTML =
+      `<div class="status-box error" style="margin:16px"><div class="section-label">Error loading jobs</div>${esc(e.message)}</div>`;
+  }
+}
+
+function updateStats(jobs) {
+  document.getElementById('stat-total').textContent      = jobs.length;
+  document.getElementById('stat-completed').textContent  = jobs.filter(j => j.status === 'completed').length;
+  document.getElementById('stat-processing').textContent = jobs.filter(j => ['processing','pending','retrying'].includes(j.status)).length;
+  document.getElementById('stat-failed').textContent     = jobs.filter(j => j.status === 'failed').length;
+}
+
+function renderJobs(jobs) {
+  const section = document.getElementById('jobs-section');
+
+  if (!jobs.length) {
+    section.innerHTML = `<div class="empty-state"><div class="empty-icon">📋</div>No jobs yet — run your first pipeline.</div>`;
+    return;
+  }
+
+  const rows = jobs.map(j => {
+    const isExpanded = expandedId === j.id;
+    return `
+      <tr onclick="toggleDetail(${j.id})" id="row-${j.id}" style="${isExpanded ? 'background:#fdf8f5' : ''}">
+        <td style="color:var(--muted); font-weight:700; font-size:0.78rem">#${j.id}</td>
+        <td style="font-weight:500; max-width:200px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap">${esc(j.keyword)}</td>
+        <td><span class="badge ${j.status}">${j.status}</span></td>
+        <td style="color:var(--muted); font-size:0.78rem">${j.stage}</td>
+        <td style="color:var(--muted-light); font-size:0.75rem">${fmtDate(j.updated_at)}</td>
+        <td style="text-align:right; color:var(--muted-light); font-size:0.78rem">${isExpanded ? '▲' : '▼'}</td>
+      </tr>
+      ${isExpanded ? `
+      <tr class="job-detail-row" id="detail-row-${j.id}" onclick="event.stopPropagation()">
+        <td colspan="6">
+          <div class="job-detail-inner" id="detail-inner-${j.id}">
+            <div style="color:var(--muted); font-size:0.8rem; padding:4px 0;">Loading details…</div>
+          </div>
+        </td>
+      </tr>` : ''}
+    `;
+  }).join('');
+
+  section.innerHTML = `
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th><th>Keyword</th><th>Status</th><th>Stage</th><th>Updated</th><th></th>
+        </tr>
+      </thead>
+      <tbody>${rows}</tbody>
+    </table>`;
+
+  if (expandedId !== null) {
+    const stillExists = jobs.find(j => j.id === expandedId);
+    if (stillExists) loadDetail(expandedId);
+    else expandedId = null;
+  }
+}
+
+// ══════════════════════════════════════════════
+//  JOB DETAIL EXPAND
+// ══════════════════════════════════════════════
+function toggleDetail(id) {
+  expandedId = expandedId === id ? null : id;
+  loadJobs();
+}
+
+async function loadDetail(jobId) {
+  const inner = document.getElementById(`detail-inner-${jobId}`);
+  if (!inner) return;
+
+  try {
+    const [statusRes, artsRes] = await Promise.all([
+      fetch(`/status/${jobId}`),
+      fetch(`/artifacts/${jobId}`),
+    ]);
+    const job  = await statusRes.json();
+    const arts = artsRes.ok ? (await artsRes.json()).artifacts || {} : {};
+
+    let html = '';
+
+    html += `<div class="detail-section">
+      <strong>Job Info</strong>
+      <div class="kv"><span class="k">Keyword</span><span class="v">${esc(job.keyword)}</span></div>
+      <div class="kv"><span class="k">Status</span><span class="v"><span class="badge ${job.status}">${job.status}</span></span></div>
+      <div class="kv"><span class="k">Stage</span><span class="v">${job.stage}</span></div>
+      <div class="kv"><span class="k">Created</span><span class="v">${job.created_at ? job.created_at.slice(0,16).replace('T',' ') : '—'}</span></div>
+    </div>`;
+
+    let rightHtml = `<div class="detail-section"><strong>Output</strong>`;
+    if (arts.article_title) rightHtml += `<div class="kv"><span class="k">Title</span><span class="v">${esc(arts.article_title)}</span></div>`;
+    if (arts.article_slug)  rightHtml += `<div class="kv"><span class="k">Slug</span><span class="v" style="font-size:.7rem">${esc(arts.article_slug)}</span></div>`;
+
+    const u1 = arts.image_u1 || arts.hero_image_url || arts.midjourney_image_url;
+    const u2 = arts.image_u2 || arts.midjourney_image_url_2;
+    if (u1) rightHtml += `<strong style="margin-top:10px">Hero Image (U1)</strong><img class="detail-img" src="${esc(u1)}" alt="U1">`;
+    if (u2) rightHtml += `<strong style="margin-top:10px">U2 Variant</strong><img class="detail-img" src="${esc(u2)}" alt="U2">`;
+    if (arts.wp_post_url) rightHtml += `<a class="detail-link" href="${esc(arts.wp_post_url)}" target="_blank">View on WordPress ↗</a>`;
+    if (!arts.article_title && !u1 && !arts.wp_post_url) {
+      if (job.status === 'failed') {
+        rightHtml += `<p style="color:#991b1b">Failed at stage: <strong>${job.stage}</strong></p>`;
+      } else if (job.status === 'completed') {
+        rightHtml += `<p>No artifacts stored.</p>`;
+      } else {
+        rightHtml += `<p>Still processing…</p>`;
+      }
+    }
+    rightHtml += `</div>`;
+    html += rightHtml;
+
+    inner.innerHTML = html;
+  } catch (e) {
+    if (inner) inner.innerHTML = `<div class="detail-section"><p style="color:#991b1b">Failed to load: ${esc(e.message)}</p></div>`;
+  }
+}
+
+// ══════════════════════════════════════════════
+//  RSS CHECK
+// ══════════════════════════════════════════════
+async function checkFeed() {
+  clearPoll();
+  setRunning(false);
+  try {
+    const res  = await fetch('/feed');
+    const data = await res.json();
+    const cls  = data.status === 'active' ? 'success' : 'error';
+    showPanel(cls,
+      `<div class="section-label">RSS Feed — ${data.status}</div>
+       <div class="kv"><span class="k">URL</span><span class="v">${esc(data.feed_url)}</span></div>
+       <div class="kv"><span class="k">Message</span><span class="v">${esc(data.message)}</span></div>
+       ${data.status !== 'active' ? '<p style="margin-top:8px;font-size:.78rem;color:var(--muted)">To enable: Yoast SEO → Search Appearance → RSS → uncheck "Disable RSS"</p>' : ''}`
+    );
+  } catch (e) {
+    showPanel('error', '<div class="section-label">Error</div>' + esc(e.message));
+  }
+}
+
+// ══════════════════════════════════════════════
+//  AUTO-REFRESH
+// ══════════════════════════════════════════════
+function startRefresh() {
+  if (refreshTimer) clearInterval(refreshTimer);
+  refreshTimer = setInterval(loadJobs, 5000);
+}
+
+// ══════════════════════════════════════════════
+//  UI HELPERS
+// ══════════════════════════════════════════════
+function setRunning(on) {
+  const btn   = document.getElementById('run-btn');
+  const icon  = document.getElementById('btn-icon');
+  const label = document.getElementById('btn-label');
+  btn.disabled = on;
+  if (on) {
+    icon.outerHTML    = `<span class="spinner" id="btn-icon"></span>`;
+    label.textContent = 'Processing…';
+  } else {
+    const ic = document.getElementById('btn-icon');
+    if (ic) { ic.outerHTML = `<span id="btn-icon">▶</span>`; }
+    label.textContent = 'Run Pipeline';
+  }
+}
+
+function showPanel(cls, inner) {
+  document.getElementById('panel').innerHTML = `<div class="status-box ${cls}">${inner}</div>`;
+}
+
+function fmtDate(s) {
+  if (!s) return '—';
+  const d    = new Date(s);
+  const now  = new Date();
+  const diff = (now - d) / 1000;
+  if (diff < 60)    return Math.round(diff) + 's ago';
+  if (diff < 3600)  return Math.round(diff / 60) + 'm ago';
+  if (diff < 86400) return Math.round(diff / 3600) + 'h ago';
+  return d.toLocaleDateString('en', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+}
+
+function esc(str) {
+  return String(str || '')
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ══════════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('keywords').addEventListener('keydown', e => {
+    if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) generate();
+  });
+  document.getElementById('website-select').addEventListener('change', function() {
+    this.style.borderColor = '#d4c5bb';
+    document.getElementById('website-select-error').style.display = 'none';
+  });
+  loadWebsiteSelect();
+  loadJobs();
+  startRefresh();
+});
+</script>
+</body>
+</html>

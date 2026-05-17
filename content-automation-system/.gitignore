@@ -1,0 +1,11 @@
+venv/
+data/
+*.env
+logs/
+__pycache__/
+*.pyc
+credentials.json
+.DS_Store
+
+# Generated media output
+pins/

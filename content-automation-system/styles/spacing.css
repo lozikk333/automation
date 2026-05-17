@@ -1,0 +1,518 @@
+/**
+ * YARA BITES Spacing System - CSS Utilities
+ * Premium Editorial Food Blog Layout Rhythm
+ *
+ * Add this file to your global styles:
+ * @import '@/styles/spacing.css'
+ */
+
+@layer components {
+  /* ========================================
+     PAGE CONTAINER UTILITIES
+     ======================================== */
+
+  .container-max {
+    @apply max-w-7xl mx-auto;
+  }
+
+  .container-narrow {
+    @apply max-w-2xl mx-auto;
+  }
+
+  .container-text {
+    @apply max-w-3xl mx-auto;
+  }
+
+  .container-prose {
+    @apply max-w-prose mx-auto;
+  }
+
+  /* Responsive container padding */
+  .container-px {
+    @apply px-4 md:px-6 lg:px-8;
+  }
+
+  .container-px-tight {
+    @apply px-4 md:px-4 lg:px-6;
+  }
+
+  .container-px-spacious {
+    @apply px-4 md:px-8 lg:px-12;
+  }
+
+  /* ========================================
+     SECTION SPACING
+     ======================================== */
+
+  /* Major section spacing - hero to categories, etc */
+  .section-major {
+    @apply py-24 md:py-32 lg:py-36;
+  }
+
+  .section-major-min {
+    @apply py-20 md:py-24;
+  }
+
+  /* Medium section spacing */
+  .section-medium {
+    @apply py-16 md:py-20 lg:py-24;
+  }
+
+  /* Small section spacing */
+  .section-small {
+    @apply py-12 md:py-16 lg:py-20;
+  }
+
+  /* Hero section (extra spacious) */
+  .section-hero {
+    @apply py-20 md:py-28 lg:py-32;
+  }
+
+  /* Between sections */
+  .section-gap-major {
+    @apply gap-24 md:gap-32 lg:gap-36;
+  }
+
+  .section-gap-medium {
+    @apply gap-16 md:gap-20 lg:gap-24;
+  }
+
+  .section-gap-small {
+    @apply gap-12 md:gap-16 lg:gap-20;
+  }
+
+  /* ========================================
+     INTERNAL SECTION SPACING
+     ======================================== */
+
+  /* Section header to content spacing */
+  .section-header-gap {
+    @apply gap-10 md:gap-14 lg:gap-16;
+  }
+
+  .section-header-gap-small {
+    @apply gap-6 md:gap-8 lg:gap-8;
+  }
+
+  /* Title to description spacing */
+  .title-description-gap {
+    @apply mt-4 md:mt-6 lg:mt-6;
+  }
+
+  /* Description to CTA spacing */
+  .description-cta-gap {
+    @apply mt-6 md:mt-8 lg:mt-8;
+  }
+
+  /* ========================================
+     CARD SPACING
+     ======================================== */
+
+  /* Card container */
+  .card-container {
+    @apply flex flex-col;
+  }
+
+  /* Card padding utilities */
+  .card-p-large {
+    @apply p-6 md:p-8;
+  }
+
+  .card-p-medium {
+    @apply p-5 md:p-6;
+  }
+
+  .card-p-small {
+    @apply p-4 md:p-5;
+  }
+
+  /* Card internal spacing */
+  .card-spacing-title {
+    @apply mt-4 md:mt-4;
+  }
+
+  .card-spacing-description {
+    @apply mt-3 md:mt-4;
+  }
+
+  .card-spacing-meta {
+    @apply mt-4 md:mt-5;
+  }
+
+  .card-spacing-cta {
+    @apply mt-5 md:mt-6;
+  }
+
+  /* ========================================
+     GRID UTILITIES
+     ======================================== */
+
+  /* Standard grid gaps */
+  .grid-gap-standard {
+    @apply gap-4 md:gap-6 lg:gap-8;
+  }
+
+  .grid-gap-compact {
+    @apply gap-3 md:gap-4 lg:gap-6;
+  }
+
+  .grid-gap-spacious {
+    @apply gap-6 md:gap-8 lg:gap-10;
+  }
+
+  /* Recipe card grid */
+  .recipe-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3;
+  }
+
+  .recipe-grid-2col {
+    @apply grid grid-cols-1 md:grid-cols-2;
+  }
+
+  /* Category grid */
+  .category-grid {
+    @apply grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8;
+  }
+
+  /* ========================================
+     BUTTON SPACING
+     ======================================== */
+
+  /* Primary button padding */
+  .btn-spacing-primary {
+    @apply px-8 py-4 md:px-8 md:py-4;
+  }
+
+  /* Secondary button padding */
+  .btn-spacing-secondary {
+    @apply px-6 py-3 md:px-6 md:py-3;
+  }
+
+  /* Small button padding */
+  .btn-spacing-small {
+    @apply px-4 py-2 md:px-4 md:py-2;
+  }
+
+  /* Button group gaps */
+  .button-gap {
+    @apply gap-4 md:gap-4;
+  }
+
+  .button-gap-tight {
+    @apply gap-3 md:gap-3;
+  }
+
+  /* ========================================
+     TYPOGRAPHY SPACING
+     ======================================== */
+
+  /* Eyebrow to title */
+  .eyebrow-spacing {
+    @apply mt-3 md:mt-4;
+  }
+
+  /* Title to subtitle */
+  .title-subtitle-gap {
+    @apply mt-4 md:mt-6 lg:mt-6;
+  }
+
+  /* Paragraph to paragraph */
+  .paragraph-gap {
+    @apply my-4 md:my-5;
+  }
+
+  /* Paragraph to button */
+  .paragraph-button-gap {
+    @apply mt-8 md:mt-8 lg:mt-8;
+  }
+
+  /* Reading width constraint */
+  .reading-width {
+    @apply max-w-prose mx-auto;
+  }
+
+  .reading-width-narrow {
+    @apply max-w-2xl mx-auto;
+  }
+
+  /* ========================================
+     HERO SECTION SPACING
+     ======================================== */
+
+  .hero-spacing {
+    @apply py-20 md:py-28 lg:py-32;
+  }
+
+  .hero-content-gap {
+    @apply gap-6 md:gap-8 lg:gap-8;
+  }
+
+  .hero-max-width {
+    @apply max-w-2xl;
+  }
+
+  /* ========================================
+     NAVBAR SPACING
+     ======================================== */
+
+  .navbar-spacing {
+    @apply h-16 md:h-20;
+  }
+
+  .navbar-px {
+    @apply px-4 md:px-6 lg:px-8;
+  }
+
+  .nav-item-gap {
+    @apply gap-8 md:gap-9 lg:gap-10;
+  }
+
+  /* ========================================
+     FORM SPACING
+     ======================================== */
+
+  .form-spacing {
+    @apply space-y-4 md:space-y-6;
+  }
+
+  .form-group-spacing {
+    @apply mb-4 md:mb-6;
+  }
+
+  .form-input-spacing {
+    @apply h-12 md:h-14;
+  }
+
+  .form-label-spacing {
+    @apply mb-2 md:mb-3;
+  }
+
+  .form-error-spacing {
+    @apply mt-2;
+  }
+
+  /* ========================================
+     FOOTER SPACING
+     ======================================== */
+
+  .footer-top-spacing {
+    @apply pt-20 md:pt-24 lg:pt-32;
+  }
+
+  .footer-column-gap {
+    @apply gap-8 md:gap-12 lg:gap-12;
+  }
+
+  .footer-section-gap {
+    @apply gap-4 md:gap-4;
+  }
+
+  .footer-link-gap {
+    @apply gap-3 md:gap-4;
+  }
+
+  /* ========================================
+     AUTHOR SECTION SPACING
+     ======================================== */
+
+  .author-spacing {
+    @apply gap-8 md:gap-12 lg:gap-16;
+  }
+
+  .author-content-gap {
+    @apply space-y-4 md:space-y-6;
+  }
+
+  .author-image-sizing {
+    @apply w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40;
+  }
+
+  /* ========================================
+     NEWSLETTER SPACING
+     ======================================== */
+
+  .newsletter-spacing {
+    @apply py-16 md:py-20 lg:py-24;
+  }
+
+  .newsletter-card-spacing {
+    @apply p-8 md:p-12 lg:p-16;
+  }
+
+  .newsletter-content-gap {
+    @apply gap-6 md:gap-8;
+  }
+
+  /* ========================================
+     HORIZONTAL LAYOUT SPACING
+     ======================================== */
+
+  /* Two column layouts */
+  .two-column-spacing {
+    @apply gap-8 md:gap-12 lg:gap-16;
+  }
+
+  /* Three column layouts */
+  .three-column-spacing {
+    @apply gap-6 md:gap-8 lg:gap-8;
+  }
+
+  /* ========================================
+     SEMANTIC SPACING UTILITIES
+     ======================================== */
+
+  /* Micro spacing (between closely related elements) */
+  .space-micro {
+    @apply gap-1;
+  }
+
+  /* Tight spacing (related elements) */
+  .space-tight {
+    @apply gap-2;
+  }
+
+  /* Compact spacing (within components) */
+  .space-compact {
+    @apply gap-3;
+  }
+
+  /* Default spacing (standard gap) */
+  .space-default {
+    @apply gap-4;
+  }
+
+  /* Comfortable spacing (breathing room) */
+  .space-comfortable {
+    @apply gap-6;
+  }
+
+  /* Spacious (premium gaps) */
+  .space-spacious {
+    @apply gap-8;
+  }
+
+  /* Luxury spacing (major sections) */
+  .space-luxury {
+    @apply gap-12;
+  }
+
+  /* Premium luxury (largest sections) */
+  .space-premium {
+    @apply gap-16;
+  }
+
+  /* ========================================
+     VISUAL HIERARCHY SPACING
+     ======================================== */
+
+  /* Emphasis: more whitespace */
+  .spacing-emphasis {
+    @apply py-16 md:py-24 lg:py-32;
+  }
+
+  /* Subtle: less whitespace */
+  .spacing-subtle {
+    @apply py-8 md:py-12;
+  }
+
+  /* Breathing room */
+  .breathing-room {
+    @apply py-12 md:py-16 lg:py-20;
+  }
+
+  /* ========================================
+     MOBILE-FRIENDLY SPACING
+     ======================================== */
+
+  /* Ensure elements don't touch edges on mobile */
+  .mobile-safe {
+    @apply mx-4 my-4;
+  }
+
+  /* Touch target sizing */
+  .touch-target {
+    @apply h-11 px-4;
+  }
+
+  /* ========================================
+     RESPONSIVE DISPLAY UTILITIES
+     ======================================== */
+
+  /* Show only on specific breakpoints */
+  .hide-mobile {
+    @apply hidden md:block;
+  }
+
+  .hide-tablet {
+    @apply hidden lg:block;
+  }
+
+  .show-mobile {
+    @apply block md:hidden;
+  }
+
+  .show-tablet {
+    @apply block lg:hidden;
+  }
+}
+
+/* ========================================
+   CUSTOM SPACING PATTERNS
+   ======================================== */
+
+@layer utilities {
+  /* Section dividers with spacing */
+  .section-divider {
+    @apply border-t border-neutral-200 py-16 md:py-24;
+  }
+
+  /* Stacked content with consistent spacing */
+  .stack-spacing {
+    @apply space-y-4 md:space-y-6 lg:space-y-8;
+  }
+
+  /* Inline content with consistent spacing */
+  .inline-spacing {
+    @apply space-x-4 md:space-x-6 lg:space-x-8;
+  }
+}
+
+/* ========================================
+   ACCESSIBILITY ENHANCEMENTS
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  /* Maintain spacing but no animations */
+  [class*='spacing'],
+  [class*='gap'],
+  [class*='section'] {
+    @apply transition-none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: more) {
+  .section-divider {
+    @apply border-neutral-400;
+  }
+}
+
+/* ========================================
+   PRINT STYLES
+   ======================================== */
+
+@media print {
+  .section-major,
+  .section-medium,
+  .section-small {
+    @apply py-6;
+  }
+
+  .page-break {
+    @apply break-before-page;
+  }
+
+  .no-print {
+    @apply hidden;
+  }
+}

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>choco Admin</title>
+  <link rel="stylesheet" href="/static/site-admin.css">
+</head>
+<body>
+  <aside class="cms-sidebar">
+    <a class="cms-brand" href="/admin"><strong>choco</strong><span>CMS Admin</span></a>
+    <nav>
+      <a href="/admin" data-view="dashboard">Dashboard</a>
+      <a href="/admin/posts" data-view="posts">Posts</a>
+      <a href="/admin/comments" data-view="comments">Comments</a>
+      <a href="/admin/subscribers" data-view="subscribers">Subscribers</a>
+      <a href="/admin/media" data-view="media">Media</a>
+      <a href="/admin/settings" data-view="settings">Settings</a>
+      <a href="/admin/pages" data-view="pages">Pages</a>
+      <a href="/admin/analytics" data-view="analytics">Analytics</a>
+      <a href="/admin/users" data-view="users">Users</a>
+      <a href="/admin/domains" data-view="domains">Domains</a>
+      <a href="/admin/appearance" data-view="appearance">Appearance</a>
+      <a href="/admin/integrations" data-view="integrations">Integrations</a>
+      <a href="/admin/backup-restore" data-view="backup-restore">Backup</a>
+    </nav>
+    <button id="logout" type="button">Sign out</button>
+  </aside>
+  <main class="cms-main">
+    <header><p id="cms-kicker">Site Admin</p><h1 id="cms-title">Dashboard</h1></header>
+    <section id="cms-app"></section>
+  </main>
+  <script src="/static/site-admin.js"></script>
+</body>
+</html>

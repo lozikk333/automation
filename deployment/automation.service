@@ -1,0 +1,19 @@
+[Unit]
+Description=Automation Articles Dashboard API
+After=network.target
+
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/automation
+EnvironmentFile=-/var/www/automation/.env
+ExecStart=/var/www/automation/venv/bin/gunicorn api.index:app \
+  --worker-class uvicorn.workers.UvicornWorker \
+  --workers 2 \
+  --bind 127.0.0.1:8000 \
+  --timeout 120
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

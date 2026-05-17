@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dessert | Cms Test Site</title>
+  <meta name="description" content="Test Recipes">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="../../index.html" aria-label="Cms Test Site home"><span class="brand-text"><strong>Cms Test Site</strong><span>Test Recipes</span></span></a>
+      <nav aria-label="Primary navigation"><a class="" href="../../index.html">Home</a><a class="" href="../../category/breakfast/">Breakfast</a><a class="" href="../../category/lunch/">Lunch</a><a class="" href="../../category/dinner/">Dinner</a><a class="active" href="../../category/dessert/">Dessert</a><a class="" href="../../category/healthy/">Healthy</a><a class="" href="../../about.html">About</a><a class="" href="../../contact.html">Contact</a></nav>
+      <div style="display:flex;align-items:center;gap:12px">
+        
+        <form class="site-search" action="../../index.html#content">
+          <label class="sr-only" for="site-search">Search</label>
+          <input id="site-search" name="q" type="search" placeholder="Search...">
+          <button type="submit" aria-label="Search">&#128269;</button>
+        </form>
+      </div>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+  <main>
+      <section class="page-intro category-intro">
+        <div class="breadcrumbs"><a href="../../index.html">Home</a><span>&rsaquo;</span><span>Dessert</span></div>
+        <h1>Dessert Recipes</h1>
+        <p><span class="recipe-count">Loading recipes...</span></p>
+      </section>
+      <div class="chips category-chips"><a href="../../index.html#recipes">All</a><a class="" href="../breakfast/">Breakfast</a><a class="" href="../lunch/">Lunch</a><a class="" href="../dinner/">Dinner</a><a class="active" href="../dessert/">Dessert</a><a class="" href="../healthy/">Healthy</a><a class="" href="../quick-meals/">Quick Meals</a></div>
+      <div class="category-layout">
+        <section>
+          <div class="section-head"><h2>Dessert</h2></div>
+          <div class="recipe-grid category-grid" data-category="Dessert"></div>
+        </section>
+        <aside class="category-sidebar">
+          <div class="sidebar-card about-mini">
+            <h3>About the Author</h3>
+            <div class="sidebar-rule"></div>
+            <div class="chef-photo small" aria-hidden="true"></div>
+            <h4>Test Chef</h4>
+            <p>Simple, tested recipes for real home kitchens &mdash; clear steps, everyday ingredients.</p>
+            <a class="outline-button small-button" href="../../about.html">Full Story &rarr;</a>
+          </div>
+          <div class="sidebar-card subscribe-mini">
+            <h3>Free Weekly Recipes</h3>
+            <div class="sidebar-rule"></div>
+            <p>New recipes every week &mdash; straight to your inbox.</p>
+            <form class="sidebar-form" action="../../contact.html">
+              <label class="sr-only" for="sidebar-email">Email address</label>
+              <input id="sidebar-email" type="email" placeholder="your@email.com">
+              <button type="submit">Subscribe Free</button>
+            </form>
+          </div>
+          <div class="sidebar-card">
+            <h3>Browse Categories</h3>
+            <div class="sidebar-rule"></div>
+            <div class="sidebar-links"><a href="../breakfast/">Breakfast<span>&rsaquo;</span></a><a href="../lunch/">Lunch<span>&rsaquo;</span></a><a href="../dinner/">Dinner<span>&rsaquo;</span></a><a href="../dessert/">Dessert<span>&rsaquo;</span></a><a href="../healthy/">Healthy<span>&rsaquo;</span></a><a href="../quick-meals/">Quick Meals<span>&rsaquo;</span></a></div>
+          </div>
+        </aside>
+      </div>
+    </main>
+  <footer class="site-footer">
+    <div class="footer-about">
+      <a class="footer-brand" href="../../index.html">Cms Test Site</a>
+      <p class="footer-kicker">Simple Recipes That Work.</p>
+      <p class="footer-desc">Tested recipes for real kitchens. Simple ingredients, clear steps, dependable results.</p>
+    </div>
+    <div>
+      <h3>Recipes</h3>
+      <a href="../../index.html#content">All Posts</a><a href="../../category/breakfast/">Breakfast</a><a href="../../category/lunch/">Lunch</a><a href="../../category/dinner/">Dinner</a><a href="../../category/dessert/">Dessert</a><a href="../../category/healthy/">Healthy</a><a href="../../category/quick-meals/">Quick Meals</a>
+    </div>
+    
+    <div>
+      <h3>Legal</h3>
+      <a href="../../about.html">About Us</a>
+      <a href="../../contact.html">Contact</a>
+      <a href="../../privacy-policy.html">Privacy Policy</a>
+      <a href="../../terms-of-use.html">Terms of Use</a>
+      <a href="../../disclaimer.html">Disclaimer</a>
+    </div>
+  </footer>
+  <p class="copyright">&copy; 2026 Cms Test Site. All rights reserved.</p>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const navToggle = document.querySelector('.nav-toggle');
+      const nav = document.querySelector('nav');
+      if (navToggle && nav) {
+        navToggle.addEventListener('click', function() {
+          this.classList.toggle('active');
+          nav.classList.toggle('active');
+          this.setAttribute('aria-expanded', this.classList.contains('active'));
+        });
+        // Close menu on link click
+        const navLinks = nav.querySelectorAll('a');
+        navLinks.forEach(link => {
+          link.addEventListener('click', function() {
+            navToggle.classList.remove('active');
+            nav.classList.remove('active');
+            navToggle.setAttribute('aria-expanded', 'false');
+          });
+        });
+        // Close menu on outside click
+        document.addEventListener('click', function(e) {
+          if (!e.target.closest('.site-header')) {
+            navToggle.classList.remove('active');
+            nav.classList.remove('active');
+            navToggle.setAttribute('aria-expanded', 'false');
+          }
+        });
+      }
+      
+      // Fetch and render posts from API
+      async function renderPosts() {
+        try {
+          // Extract site slug from current URL
+          const pathParts = window.location.pathname.split('/');
+          const siteSlug = pathParts[2];
+          
+          // Find all recipe grids that need content
+          const grids = document.querySelectorAll('.recipe-grid[data-category], .recipe-grid[data-section="featured"]');
+          
+          for (const grid of grids) {
+            const category = grid.getAttribute('data-category');
+            const isFeature = grid.hasAttribute('data-section');
+            
+            try {
+              const url = isFeature 
+                ? `/api/v1/sites/${siteSlug}/posts?page_size=6`
+                : `/api/v1/sites/${siteSlug}/posts?category=${encodeURIComponent(category)}&page_size=12`;
+              
+              const response = await fetch(url);
+              if (!response.ok) throw new Error('Failed to fetch posts');
+              
+              const data = await response.json();
+              const posts = data.posts || [];
+              
+              // Update count if on category page
+              if (category) {
+                const countEl = document.querySelector('.recipe-count');
+                if (countEl) countEl.textContent = posts.length + ' recipes in this category';
+              }
+              
+              // Render cards
+              grid.innerHTML = posts.length > 0
+                ? posts.map(post => `
+                    <article class="recipe-card">
+                      <a href="../../recipe/${post.slug}/">
+                        <div class="recipe-photo photo-fallback">
+                          <span>${post.category || 'Recipe'}</span>
+                        </div>
+                        <div class="recipe-body">
+                          <h3>${post.title}</h3>
+                          <p>${post.excerpt || post.content.substring(0, 100)}</p>
+                          <div class="recipe-meta">
+                            <span>&#9719;&nbsp;Featured</span>
+                            <span class="stars" aria-label="5 stars"></span>
+                          </div>
+                        </div>
+                      </a>
+                    </article>
+                  `).join('')
+                : `<p style="grid-column:1/-1;text-align:center;color:#888;padding:40px">No recipes yet. Check back soon!</p>`;
+            } catch (e) {
+              console.error('Error loading posts:', e);
+              grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:#999">Unable to load recipes</p>';
+            }
+          }
+        } catch (e) {
+          console.error('Error in renderPosts:', e);
+        }
+      }
+      
+      renderPosts();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Simple Recipes That Work | Cms Test Site</title>
+  <meta name="description" content="Test Recipes">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html" aria-label="Cms Test Site home"><span class="brand-text"><strong>Cms Test Site</strong><span>Test Recipes</span></span></a>
+      <nav aria-label="Primary navigation"><a class="active" href="index.html">Home</a><a class="" href="category/breakfast/">Breakfast</a><a class="" href="category/lunch/">Lunch</a><a class="" href="category/dinner/">Dinner</a><a class="" href="category/dessert/">Dessert</a><a class="" href="category/healthy/">Healthy</a><a class="" href="about.html">About</a><a class="" href="contact.html">Contact</a></nav>
+      <div style="display:flex;align-items:center;gap:12px">
+        
+        <form class="site-search" action="index.html#content">
+          <label class="sr-only" for="site-search">Search</label>
+          <input id="site-search" name="q" type="search" placeholder="Search...">
+          <button type="submit" aria-label="Search">&#128269;</button>
+        </form>
+      </div>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+  <main>
+      <section class="hero">
+        <p class="eyebrow">Welcome to Cms Test Site</p>
+        <h1>Simple Recipes That Work</h1>
+        <p class="hero-copy">Welcome</p>
+        <a class="button" href="#content">Explore Recipes &rarr;</a>
+      </section>
+      <div class="chips"><a class="active" href="#content">All</a><a href="#breakfast">Breakfast</a><a href="#lunch">Lunch</a><a href="#dinner">Dinner</a><a href="#dessert">Dessert</a><a href="#healthy">Healthy</a><a href="#quick-meals">Quick Meals</a></div>
+      <section id="content" class="recipe-section">
+        <div class="section-head">
+          <h2>Featured Recipes</h2>
+          <a href="#more">View All &rarr;</a>
+        </div>
+        <div class="recipe-grid" data-section="featured"></div>
+      </section>
+      <section class="chef-card">
+        <div class="chef-photo" aria-hidden="true"></div>
+        <div>
+          <p class="eyebrow">Meet the Author</p>
+          <h2>Hi, I&rsquo;m Test Chef</h2>
+          <p>We test recipes</p>
+          <a class="outline-button" href="about.html">Read My Story &rarr;</a>
+        </div>
+      </section>
+      <section class="newsletter">
+        <h2>Get Fresh Recipes Weekly</h2>
+        <p>Join thousands of home cooks who get new recipes, tips, and seasonal ideas delivered every week.</p>
+        <form class="newsletter-form" action="contact.html">
+          <label class="sr-only" for="newsletter-email">Email address</label>
+          <input id="newsletter-email" type="email" placeholder="your@email.com">
+          <button type="submit">Subscribe Free &rarr;</button>
+        </form>
+      </section>
+      <section class="recipe-section" id="breakfast">
+        <div class="section-head"><h2>Breakfast</h2><a href="category/breakfast/">View All &rarr;</a></div>
+        <div class="recipe-grid" data-category="Breakfast"></div>
+      </section><section class="recipe-section" id="lunch">
+        <div class="section-head"><h2>Lunch</h2><a href="category/lunch/">View All &rarr;</a></div>
+        <div class="recipe-grid" data-category="Lunch"></div>
+      </section><section class="recipe-section" id="dinner">
+        <div class="section-head"><h2>Dinner</h2><a href="category/dinner/">View All &rarr;</a></div>
+        <div class="recipe-grid" data-category="Dinner"></div>
+      </section><section class="recipe-section" id="dessert">
+        <div class="section-head"><h2>Dessert</h2><a href="category/dessert/">View All &rarr;</a></div>
+        <div class="recipe-grid" data-category="Dessert"></div>
+      </section><section class="recipe-section" id="healthy">
+        <div class="section-head"><h2>Healthy</h2><a href="category/healthy/">View All &rarr;</a></div>
+        <div class="recipe-grid" data-category="Healthy"></div>
+      </section><section class="recipe-section" id="quick-meals">
+        <div class="section-head"><h2>Quick Meals</h2><a href="category/quick-meals/">View All &rarr;</a></div>
+        <div class="recipe-grid" data-category="Quick Meals"></div>
+      </section>
+    </main>
+  <footer class="site-footer">
+    <div class="footer-about">
+      <a class="footer-brand" href="index.html">Cms Test Site</a>
+      <p class="footer-kicker">Simple Recipes That Work.</p>
+      <p class="footer-desc">Tested recipes for real kitchens. Simple ingredients, clear steps, dependable results.</p>
+    </div>
+    <div>
+      <h3>Recipes</h3>
+      <a href="index.html#content">All Posts</a><a href="category/breakfast/">Breakfast</a><a href="category/lunch/">Lunch</a><a href="category/dinner/">Dinner</a><a href="category/dessert/">Dessert</a><a href="category/healthy/">Healthy</a><a href="category/quick-meals/">Quick Meals</a>
+    </div>
+    
+    <div>
+      <h3>Legal</h3>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms-of-use.html">Terms of Use</a>
+      <a href="disclaimer.html">Disclaimer</a>
+    </div>
+  </footer>
+  <p class="copyright">&copy; 2026 Cms Test Site. All rights reserved.</p>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const navToggle = document.querySelector('.nav-toggle');
+      const nav = document.querySelector('nav');
+      if (navToggle && nav) {
+        navToggle.addEventListener('click', function() {
+          this.classList.toggle('active');
+          nav.classList.toggle('active');
+          this.setAttribute('aria-expanded', this.classList.contains('active'));
+        });
+        // Close menu on link click
+        const navLinks = nav.querySelectorAll('a');
+        navLinks.forEach(link => {
+          link.addEventListener('click', function() {
+            navToggle.classList.remove('active');
+            nav.classList.remove('active');
+            navToggle.setAttribute('aria-expanded', 'false');
+          });
+        });
+        // Close menu on outside click
+        document.addEventListener('click', function(e) {
+          if (!e.target.closest('.site-header')) {
+            navToggle.classList.remove('active');
+            nav.classList.remove('active');
+            navToggle.setAttribute('aria-expanded', 'false');
+          }
+        });
+      }
+      
+      // Fetch and render posts from API
+      async function renderPosts() {
+        try {
+          // Extract site slug from current URL
+          const pathParts = window.location.pathname.split('/');
+          const siteSlug = pathParts[2];
+          
+          // Find all recipe grids that need content
+          const grids = document.querySelectorAll('.recipe-grid[data-category], .recipe-grid[data-section="featured"]');
+          
+          for (const grid of grids) {
+            const category = grid.getAttribute('data-category');
+            const isFeature = grid.hasAttribute('data-section');
+            
+            try {
+              const url = isFeature 
+                ? `/api/v1/sites/${siteSlug}/posts?page_size=6`
+                : `/api/v1/sites/${siteSlug}/posts?category=${encodeURIComponent(category)}&page_size=12`;
+              
+              const response = await fetch(url);
+              if (!response.ok) throw new Error('Failed to fetch posts');
+              
+              const data = await response.json();
+              const posts = data.posts || [];
+              
+              // Update count if on category page
+              if (category) {
+                const countEl = document.querySelector('.recipe-count');
+                if (countEl) countEl.textContent = posts.length + ' recipes in this category';
+              }
+              
+              // Render cards
+              grid.innerHTML = posts.length > 0
+                ? posts.map(post => `
+                    <article class="recipe-card">
+                      <a href="recipe/${post.slug}/">
+                        <div class="recipe-photo photo-fallback">
+                          <span>${post.category || 'Recipe'}</span>
+                        </div>
+                        <div class="recipe-body">
+                          <h3>${post.title}</h3>
+                          <p>${post.excerpt || post.content.substring(0, 100)}</p>
+                          <div class="recipe-meta">
+                            <span>&#9719;&nbsp;Featured</span>
+                            <span class="stars" aria-label="5 stars"></span>
+                          </div>
+                        </div>
+                      </a>
+                    </article>
+                  `).join('')
+                : `<p style="grid-column:1/-1;text-align:center;color:#888;padding:40px">No recipes yet. Check back soon!</p>`;
+            } catch (e) {
+              console.error('Error loading posts:', e);
+              grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:#999">Unable to load recipes</p>';
+            }
+          }
+        } catch (e) {
+          console.error('Error in renderPosts:', e);
+        }
+      }
+      
+      renderPosts();
+    });
+  </script>
+</body>
+</html>

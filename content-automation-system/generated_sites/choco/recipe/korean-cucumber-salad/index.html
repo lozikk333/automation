@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Korean Cucumber Salad | Choco</title>
+  <meta name="description" content="Simple recipes that work.">
+  <link rel="stylesheet" href="../../style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Recipe",
+    "name": "Korean Cucumber Salad",
+    "description": "A refreshing and simple Korean cucumber salad that's perfect for lunch or as a side dish.",
+    "author": {"@type": "Person", "name": "emma"},
+    "datePublished": "2026-05-11",
+    "prepTime": "PT5M",
+    "cookTime": "PT10M",
+    "totalTime": "PT15M",
+    "recipeYield": "4 servings",
+    "recipeCategory": "Lunch",
+    "image": "../../assets/watermelon-cucumber-salad-with-basil.jpg",
+    "nutrition": {
+      "@type": "NutritionInformation",
+      "calories": "120 calories",
+      "proteinContent": "4 g",
+      "carbohydrateContent": "15 g",
+      "fatContent": "6 g"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.6",
+      "reviewCount": "183"
+    }
+  }
+  </script>
+  <script>
+  (function(){
+    var SLUG = "korean-cucumber-salad";
+    var KEY  = 'recipe_ingredient_state_' + SLUG;
+
+    function save(states) {
+      try { localStorage.setItem(KEY, JSON.stringify(states)); } catch(e) {}
+    }
+    function load() {
+      try { return JSON.parse(localStorage.getItem(KEY) || '{}'); } catch(e) { return {}; }
+    }
+
+    function toggle(item, index, states) {
+      var checked = item.getAttribute('aria-checked') === 'true';
+      checked = !checked;
+      item.setAttribute('aria-checked', String(checked));
+      item.classList.toggle('checked', checked);
+      states[index] = checked;
+      save(states);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      var items  = document.querySelectorAll('.ingredient-item');
+      var states = load();
+
+      items.forEach(function(item, i) {
+        // Restore saved state
+        if (states[i]) {
+          item.setAttribute('aria-checked', 'true');
+          item.classList.add('checked');
+        }
+
+        item.addEventListener('click', function() { toggle(item, i, states); });
+
+        item.addEventListener('keydown', function(e) {
+          if (e.key === ' ' || e.key === 'Enter') {
+            e.preventDefault();
+            toggle(item, i, states);
+          }
+        });
+      });
+    });
+  })();
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="../../index.html" aria-label="Choco home"><span class="brand-text"><strong>Choco</strong><span>Simple recipes that work.</span></span></a>
+      <nav aria-label="Primary navigation"><a class="" href="../../index.html">Home</a><a class="" href="../../category/breakfast/">Breakfast</a><a class="active" href="../../category/lunch/">Lunch</a><a class="" href="../../category/dinner/">Dinner</a><a class="" href="../../category/dessert/">Dessert</a><a class="" href="../../category/healthy/">Healthy</a><a class="" href="../../about.html">About</a><a class="" href="../../contact.html">Contact</a></nav>
+      <div style="display:flex;align-items:center;gap:12px">
+        
+        <form class="site-search" action="../../index.html#content">
+          <label class="sr-only" for="site-search">Search</label>
+          <input id="site-search" name="q" type="search" placeholder="Search...">
+          <button type="submit" aria-label="Search">&#128269;</button>
+        </form>
+      </div>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+  <main>
+      <div class="recipe-layout">
+        <article class="recipe-article" data-site-name="Choco">
+          <header class="recipe-header">
+            <div class="breadcrumbs"><a href="../../index.html">Home</a><span>/</span><a href="../../category/lunch/">Lunch</a><span>/</span><span>Korean Cucumber Salad</span></div>
+            <p class="eyebrow">Lunch</p>
+            <h1>Korean Cucumber Salad</h1>
+            <div class="article-rating"><span class="stars" aria-label="4.5 out of 5 stars"></span><span>4.5</span><span style="color:var(--line)">&middot;</span><span>190 ratings</span></div>
+            <div class="article-meta"><span>By <strong>emma</strong></span><span style="color:var(--line)">&middot;</span><span>May 11, 2026</span></div>
+            <div class="article-actions">
+              <a class="button" href="#recipe-card">Jump To Recipe &darr;</a>
+              <button type="button" onclick="window.print()" aria-label="Print this recipe">&#128424; Print Recipe</button>
+            </div>
+          </header>
+          <div class="recipe-hero-image photo-korean-cucumber-salad" aria-label="Korean Cucumber Salad"></div>
+          <p class="recipe-summary">A refreshing and simple Korean cucumber salad that&#x27;s perfect for lunch or as a side dish.</p>
+          <div class="recipe-stats" id="recipe-card">
+            <div><span>Prep Time</span><strong>5 min</strong></div>
+            <div><span>Cook Time</span><strong>10 min</strong></div>
+            <div><span>Total Time</span><strong>15 min</strong></div>
+            <div><span>Servings</span><strong>4</strong></div>
+          </div>
+          <section class="article-section">
+            <h2>Ingredients</h2>
+            <ul class="ingredient-grid"><li class="ingredient-item" role="checkbox" aria-checked="false" tabindex="0"><span class="ingredient-check" aria-hidden="true">&#10003;</span><span class="ingredient-text">2 cups fresh vegetables</span></li><li class="ingredient-item" role="checkbox" aria-checked="false" tabindex="0"><span class="ingredient-check" aria-hidden="true">&#10003;</span><span class="ingredient-text">1 tablespoon olive oil</span></li><li class="ingredient-item" role="checkbox" aria-checked="false" tabindex="0"><span class="ingredient-check" aria-hidden="true">&#10003;</span><span class="ingredient-text">1 tablespoon soy sauce</span></li><li class="ingredient-item" role="checkbox" aria-checked="false" tabindex="0"><span class="ingredient-check" aria-hidden="true">&#10003;</span><span class="ingredient-text">1 teaspoon rice vinegar</span></li><li class="ingredient-item" role="checkbox" aria-checked="false" tabindex="0"><span class="ingredient-check" aria-hidden="true">&#10003;</span><span class="ingredient-text">Fresh herbs to taste</span></li><li class="ingredient-item" role="checkbox" aria-checked="false" tabindex="0"><span class="ingredient-check" aria-hidden="true">&#10003;</span><span class="ingredient-text">Salt and pepper to taste</span></li></ul>
+          </section>
+          <section class="article-section">
+            <h2>Instructions</h2>
+            <ol class="instruction-list"><li><span>1</span><p>Prepare all ingredients and place them near your work surface.</p></li><li><span>2</span><p>Whisk together the dressing ingredients until smooth.</p></li><li><span>3</span><p>Toss everything together gently until evenly coated.</p></li><li><span>4</span><p>Taste, adjust seasoning, and serve fresh.</p></li></ol>
+          </section>
+          <div class="tag-list"><span>salad</span><span>vegetarian</span><span>easy</span><span>healthy</span><span>lunch</span></div>
+          <section class="article-section">
+            <h2>Nutrition Facts</h2>
+            <div class="nutrition-grid">
+              <div><span>Calories</span><strong>120 kcal</strong></div>
+              <div><span>Protein</span><strong>4 g</strong></div>
+              <div><span>Carbs</span><strong>15 g</strong></div>
+              <div><span>Fat</span><strong>6 g</strong></div>
+            </div>
+            <p class="nutrition-note">* Nutritional values are estimates per serving and may vary based on ingredients used.</p>
+          </section>
+          <section class="article-section">
+            <h2>Notes</h2>
+            <div class="notes-box">
+              <p>Try adding a splash of lime juice for extra freshness.</p>
+              <p>Use pre-packaged matchstick carrots for convenience.</p>
+              <p>This salad is best enjoyed fresh but can be stored in the fridge for a day.</p>
+            </div>
+          </section>
+          <section class="article-section faq-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item"><h3><span>Q:</span> Can I use canned bean sprouts?</h3><p><strong>A:</strong> Fresh bean sprouts are recommended for the best texture, but canned can be used in a pinch. Rinse them well before use.</p></div>
+            <div class="faq-item"><h3><span>Q:</span> Is this salad vegan?</h3><p><strong>A:</strong> Yes, this bean sprout salad is vegan-friendly.</p></div>
+            <div class="faq-item"><h3><span>Q:</span> How do I store leftovers?</h3><p><strong>A:</strong> Store leftovers in an airtight container in the fridge for up to 24 hours.</p></div>
+          </section>
+          <section class="article-section comments-section">
+            <h2>Comments</h2>
+            <form class="comment-form">
+              <input type="text" placeholder="Your name">
+              <input type="email" placeholder="your@email.com">
+              <textarea placeholder="Share a tip, a substitution, or how it turned out for you..."></textarea>
+              <button type="submit">Post Comment</button>
+            </form>
+            <p class="no-comments">No comments yet &mdash; be the first to leave one!</p>
+          </section>
+        </article>
+        
+      <aside class="category-sidebar recipe-sidebar">
+        <div class="sidebar-card about-mini">
+          <h3>About Me</h3>
+          <div class="sidebar-rule"></div>
+          <div class="chef-photo small" aria-hidden="true"></div>
+          <h4>emma</h4>
+          <p>Hi there! I&rsquo;m emma, and food has been at the heart of my life for as long as I can remember. Growing up, the kitchen was always the warmest</p>
+          <a class="outline-button small-button" href="../../about.html">Full Story &rarr;</a>
+        </div>
+        <div class="sidebar-card subscribe-mini">
+          <h3>Free Weekly Recipes</h3>
+          <div class="sidebar-rule"></div>
+          <p>New recipes every week &mdash; straight to your inbox.</p>
+          <form class="sidebar-form" action="../../contact.html">
+            <label class="sr-only" for="recipe-sidebar-email">Email address</label>
+            <input id="recipe-sidebar-email" type="email" placeholder="your@email.com">
+            <button type="submit">Subscribe Free</button>
+          </form>
+        </div>
+        <div class="sidebar-card">
+          <h3>Browse Categories</h3>
+          <div class="sidebar-rule"></div>
+          <div class="sidebar-links"><a href="../../category/breakfast/">Breakfast<span>&rsaquo;</span></a><a href="../../category/lunch/">Lunch<span>&rsaquo;</span></a><a href="../../category/dinner/">Dinner<span>&rsaquo;</span></a><a href="../../category/dessert/">Dessert<span>&rsaquo;</span></a><a href="../../category/healthy/">Healthy<span>&rsaquo;</span></a><a href="../../category/quick-meals/">Quick Meals<span>&rsaquo;</span></a></div>
+        </div>
+        <div class="sidebar-card sidebar-latest">
+          <h3>Latest Recipes</h3>
+          <div class="sidebar-rule"></div>
+          <div class="sidebar-latest-list"><a class="sidebar-latest-item" href="../../recipe/protein-french-toast/">
+          <div class="sidebar-latest-thumb photo-protein-french-toast" aria-hidden="true"></div>
+          <div class="sidebar-latest-info">
+            <span class="sidebar-latest-title">Protein French Toast</span>
+            <span class="sidebar-latest-meta">&#9719;&nbsp;20 min</span>
+          </div>
+        </a><a class="sidebar-latest-item" href="../../recipe/egg-roll-chicken-bowl/">
+          <div class="sidebar-latest-thumb photo-egg-roll-chicken-bowl" aria-hidden="true"></div>
+          <div class="sidebar-latest-info">
+            <span class="sidebar-latest-title">Egg Roll Chicken Bowl</span>
+            <span class="sidebar-latest-meta">&#9719;&nbsp;25 min</span>
+          </div>
+        </a><a class="sidebar-latest-item" href="../../recipe/chicken-and-waffles-brunch/">
+          <div class="sidebar-latest-thumb photo-chicken-and-waffles-brunch" aria-hidden="true"></div>
+          <div class="sidebar-latest-info">
+            <span class="sidebar-latest-title">Chicken and Waffles Brunch</span>
+            <span class="sidebar-latest-meta">&#9719;&nbsp;35 min</span>
+          </div>
+        </a></div>
+        </div>
+      </aside>
+    
+      </div>
+    </main>
+  <footer class="site-footer">
+    <div class="footer-about">
+      <a class="footer-brand" href="../../index.html">Choco</a>
+      <p class="footer-kicker">Simple Recipes That Work.</p>
+      <p class="footer-desc">Tested recipes for real kitchens. Simple ingredients, clear steps, dependable results.</p>
+    </div>
+    <div>
+      <h3>Recipes</h3>
+      <a href="../../index.html#content">All Posts</a><a href="../../category/breakfast/">Breakfast</a><a href="../../category/lunch/">Lunch</a><a href="../../category/dinner/">Dinner</a><a href="../../category/dessert/">Dessert</a><a href="../../category/healthy/">Healthy</a><a href="../../category/quick-meals/">Quick Meals</a>
+    </div>
+    
+    <div>
+      <h3>Legal</h3>
+      <a href="../../about.html">About Us</a>
+      <a href="../../contact.html">Contact</a>
+      <a href="../../privacy-policy.html">Privacy Policy</a>
+      <a href="../../terms-of-use.html">Terms of Use</a>
+      <a href="../../disclaimer.html">Disclaimer</a>
+    </div>
+  </footer>
+  <p class="copyright">&copy; 2026 Choco. All rights reserved.</p>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const navToggle = document.querySelector('.nav-toggle');
+      const nav = document.querySelector('nav');
+      if (navToggle && nav) {
+        navToggle.addEventListener('click', function() {
+          this.classList.toggle('active');
+          nav.classList.toggle('active');
+          this.setAttribute('aria-expanded', this.classList.contains('active'));
+        });
+        // Close menu on link click
+        const navLinks = nav.querySelectorAll('a');
+        navLinks.forEach(link => {
+          link.addEventListener('click', function() {
+            navToggle.classList.remove('active');
+            nav.classList.remove('active');
+            navToggle.setAttribute('aria-expanded', 'false');
+          });
+        });
+        // Close menu on outside click
+        document.addEventListener('click', function(e) {
+          if (!e.target.closest('.site-header')) {
+            navToggle.classList.remove('active');
+            nav.classList.remove('active');
+            navToggle.setAttribute('aria-expanded', 'false');
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+{
+  "id": "u1_u2_white_band",
+  "label": "U1/U2 White Band",
+  "description": "High-CTR dual-photo Pinterest layout with centered recipe title card.",
+  "canvas": {
+    "width": 1000,
+    "height": 1500,
+    "background": "#ffffff"
+  },
+  "layout": {
+    "top_image": {
+      "source": "u1",
+      "x": 0,
+      "y": 0,
+      "width": 1000,
+      "height": 795
+    },
+    "text_band": {
+      "x": 50,
+      "y": 545,
+      "width": 900,
+      "height": 370,
+      "background": "#fffdf8",
+      "border_color": "#466b3a",
+      "border_width": 4,
+      "border_style": "dashed",
+      "border_dash": 16,
+      "border_gap": 10,
+      "radius": 14
+    },
+    "bottom_image": {
+      "source": "u2",
+      "x": 0,
+      "y": 795,
+      "width": 1000,
+      "height": 705
+    },
+    "eyebrow_text": {
+      "enabled": false,
+      "text": "QUICK & EASY",
+      "font_family": "Arimo",
+      "font_size": 30,
+      "fill": "#8c9188",
+      "letter_spacing": 2,
+      "gap": 18
+    },
+    "tagline_text": {
+      "enabled": true,
+      "text": "Easy to prepare",
+      "font_family": "Arimo",
+      "font_size": 32,
+      "fill": "#a2a69d",
+      "gap": 18
+    },
+    "text_badge": {
+      "background": "#ffffff",
+      "fill": "#111111",
+      "font_family": "Lilita One"
+    },
+    "accent_text": {}
+  },
+  "image": {
+    "brightness": 1.04,
+    "contrast": 1.12,
+    "color": 1.08,
+    "sharpness": 1.18
+  },
+  "text": {
+    "font_family": "Lilita One",
+    "font_path": "templates/fonts/LilitaOne-Regular.ttf",
+    "uppercase": true,
+    "max_words": 8,
+    "max_lines": 3,
+    "font_size_max": 122,
+    "font_size_min": 38,
+    "min_visual_width_ratio": 0.64,
+    "fill": "#234f2c",
+    "stroke_fill": "#234f2c",
+    "stroke_width": 0,
+    "shadow_fill": "#234f2c",
+    "shadow_offset": [
+      0,
+      0
+    ],
+    "align": "center",
+    "line_spacing": 1.04,
+    "safe_padding_x": 24,
+    "safe_padding_y": 30
+  },
+  "export": {
+    "format": "JPEG",
+    "quality": 90,
+    "optimize": true,
+    "progressive": true
+  }
+}

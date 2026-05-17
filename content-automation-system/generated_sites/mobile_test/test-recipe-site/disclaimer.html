@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Disclaimer | Test Recipe Site</title>
+  <meta name="description" content="Simple Recipes That Work">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html" aria-label="Test Recipe Site home"><span class="brand-text"><strong>Test Recipe Site</strong><span>Simple Recipes That Work</span></span></a>
+      <nav aria-label="Primary navigation"><a class="" href="index.html">Home</a><a class="" href="category/breakfast/">Breakfast</a><a class="" href="category/lunch/">Lunch</a><a class="" href="category/dinner/">Dinner</a><a class="" href="category/dessert/">Dessert</a><a class="" href="category/healthy/">Healthy</a><a class="" href="about.html">About</a><a class="" href="contact.html">Contact</a></nav>
+      <div style="display:flex;align-items:center;gap:12px">
+        
+        <form class="site-search" action="index.html#content">
+          <label class="sr-only" for="site-search">Search</label>
+          <input id="site-search" name="q" type="search" placeholder="Search...">
+          <button type="submit" aria-label="Search">&#128269;</button>
+        </form>
+      </div>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+  <main>
+      <section class="page-intro legal-intro">
+        <div class="breadcrumbs"><a href="index.html">Home</a><span>&rsaquo;</span><span>Disclaimer</span></div>
+        <h1>Disclaimer</h1>
+      </section>
+      <section class="policy-page">
+        <p>Last updated: May 11, 2026</p>
+        <hr>
+        
+      <section>
+        <h2>General Information Disclaimer</h2>
+        <p>The information provided by Test Recipe Site on Test Recipe Site at test-site is for general informational and educational purposes only. The content is published in good faith for readers interested in our content and recipe blog content and should not be treated as professional, individualized, or legally binding advice.</p>
+        <p>Your use of Test Recipe Site and reliance on any information on this website is solely at your own risk.</p>
+      </section>
+      <section>
+        <h2>Accuracy and No Warranty</h2>
+        <p>We aim to keep the information on Test Recipe Site accurate, current, and useful, but we make no representations or warranties of any kind, express or implied, about completeness, accuracy, reliability, suitability, availability, or results from using the website or its content.</p>
+        <p>Content may contain errors, omissions, outdated details, or typographical mistakes. We may update, change, or remove content at any time without notice.</p>
+      </section>
+      <section>
+        <h2>Limitation of Liability</h2>
+        <p>To the fullest extent permitted by applicable law, Test Recipe Site, its owners, contributors, partners, employees, service providers, and affiliates will not be liable for any loss, damage, injury, claim, cost, or expense arising from your use of, or inability to use, Test Recipe Site or your reliance on any information provided on the website.</p>
+        <p>This includes direct, indirect, incidental, consequential, special, punitive, or similar damages, even if we have been advised of the possibility of such damages.</p>
+      </section>
+      <section>
+        <h2>External Links Disclaimer</h2>
+        <p>Test Recipe Site may contain links to external websites, tools, platforms, products, or services that are not owned or controlled by us. External links are provided for convenience and informational purposes only.</p>
+        <p>We do not guarantee and are not responsible for the accuracy, availability, security, content, policies, practices, or offerings of third-party websites or services.</p>
+      </section>
+    
+      <section>
+        <h2>Third-Party Responsibility</h2>
+        <p>When you leave Test Recipe Site through a third-party link, you are responsible for reviewing that third party's terms, privacy policy, refund policy, product information, and safety practices. We are not responsible for transactions, communications, downloads, claims, or disputes involving third-party sites or services.</p>
+      </section>
+        
+      <section>
+        <h2>Recipe, Nutrition, Allergy, and Dietary Disclaimer</h2>
+        <p>Recipes, cooking tips, meal ideas, and nutrition information on Test Recipe Site are provided for general informational purposes only. Nutrition values are estimates and may vary based on brands, ingredient substitutions, portion sizes, preparation methods, and calculation tools.</p>
+        <p>You are responsible for checking ingredients, labels, allergens, cross-contamination risks, and dietary suitability before preparing or consuming any recipe. If you have allergies, intolerances, medical dietary restrictions, or specific nutrition needs, consult a qualified professional.</p>
+        <p>Recipe results may vary depending on equipment, ingredient quality, altitude, climate, skill level, substitutions, and cooking conditions.</p>
+      </section>
+        
+      <section>
+        <h2>Contact Information</h2>
+        <p>If you have questions about this Disclaimer, contact Test Recipe Site at <a href="mailto:test@example.com">test@example.com</a>.</p>
+        <p>Website: test-site</p>
+        <p>Country or primary jurisdiction: United States</p>
+      </section>
+    
+      </section>
+    </main>
+  <footer class="site-footer">
+    <div class="footer-about">
+      <a class="footer-brand" href="index.html">Test Recipe Site</a>
+      <p class="footer-kicker">Simple Recipes That Work.</p>
+      <p class="footer-desc">Tested recipes for real kitchens. Simple ingredients, clear steps, dependable results.</p>
+    </div>
+    <div>
+      <h3>Recipes</h3>
+      <a href="index.html#content">All Posts</a><a href="category/breakfast/">Breakfast</a><a href="category/lunch/">Lunch</a><a href="category/dinner/">Dinner</a><a href="category/dessert/">Dessert</a><a href="category/healthy/">Healthy</a><a href="category/quick-meals/">Quick Meals</a>
+    </div>
+    
+    <div>
+      <h3>Legal</h3>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms-of-use.html">Terms of Use</a>
+      <a href="disclaimer.html">Disclaimer</a>
+    </div>
+  </footer>
+  <p class="copyright">&copy; 2026 Test Recipe Site. All rights reserved.</p>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const navToggle = document.querySelector('.nav-toggle');
+      const nav = document.querySelector('nav');
+      if (navToggle && nav) {
+        navToggle.addEventListener('click', function() {
+          this.classList.toggle('active');
+          nav.classList.toggle('active');
+          this.setAttribute('aria-expanded', this.classList.contains('active'));
+        });
+        // Close menu on link click
+        const navLinks = nav.querySelectorAll('a');
+        navLinks.forEach(link => {
+          link.addEventListener('click', function() {
+            navToggle.classList.remove('active');
+            nav.classList.remove('active');
+            navToggle.setAttribute('aria-expanded', 'false');
+          });
+        });
+        // Close menu on outside click
+        document.addEventListener('click', function(e) {
+          if (!e.target.closest('.site-header')) {
+            navToggle.classList.remove('active');
+            nav.classList.remove('active');
+            navToggle.setAttribute('aria-expanded', 'false');
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>

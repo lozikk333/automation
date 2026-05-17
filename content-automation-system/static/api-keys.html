@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>API Keys — Choco Kitchen</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #faf7f4;
+      color: #1a1a1a;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px 60px;
+    }
+
+    /* ── Header ── */
+    header {
+      width: 100%; max-width: 780px;
+      margin-bottom: 28px;
+      display: flex; align-items: flex-start;
+      justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    }
+    .header-left h1 { font-size: 1.5rem; color: #3b1a08; letter-spacing: -0.3px; }
+    .header-left p  { margin-top: 4px; color: #6b5045; font-size: 0.875rem; }
+    .back-link {
+      font-size: 0.82rem; color: #b45309; font-weight: 600;
+      text-decoration: none; padding: 7px 14px;
+      border: 1px solid #d4c5bb; border-radius: 8px;
+      background: #fff; white-space: nowrap; flex-shrink: 0;
+    }
+    .back-link:hover { background: #f3ede8; }
+
+    /* ── Info banner ── */
+    .banner {
+      width: 100%; max-width: 780px;
+      background: #fef3c7; border: 1px solid #fcd34d;
+      border-radius: 10px; padding: 14px 18px;
+      font-size: 0.83rem; color: #78350f; line-height: 1.6;
+      margin-bottom: 20px; display: flex; gap: 10px;
+    }
+    .banner-icon { flex-shrink: 0; font-size: 1rem; }
+
+    /* ── Cards ── */
+    .card {
+      background: #fff; border: 1px solid #e8ddd6;
+      border-radius: 12px; width: 100%; max-width: 780px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.05);
+      margin-bottom: 16px; overflow: hidden;
+      transition: box-shadow .15s;
+    }
+    .card:hover { box-shadow: 0 4px 16px rgba(0,0,0,.08); }
+
+    .card-top {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 16px; align-items: center;
+      padding: 20px 24px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    /* ── Status icon ── */
+    .status-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; flex-shrink: 0;
+    }
+    .status-icon.ok       { background: #f0fdf4; }
+    .status-icon.error    { background: #fef2f2; }
+    .status-icon.unknown  { background: #f3ede8; }
+    .status-icon.testing  { background: #eff6ff; }
+
+    /* ── Card info ── */
+    .card-info { min-width: 0; }
+    .service-name {
+      font-weight: 700; font-size: 0.95rem; color: #3b1a08;
+      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    }
+    .service-desc { font-size: 0.78rem; color: #6b5045; margin-top: 3px; }
+    .service-env  {
+      font-size: 0.7rem; color: #9b7a6a; margin-top: 5px;
+      font-family: 'Menlo', 'Monaco', monospace;
+      background: #f3ede8; padding: 2px 7px; border-radius: 4px;
+      display: inline-block;
+    }
+
+    /* ── Status badge ── */
+    .status-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 3px 10px; border-radius: 999px;
+      font-size: 0.72rem; font-weight: 700; flex-shrink: 0;
+    }
+    .status-badge::before { content: '●'; font-size: .45rem; }
+    .status-badge.configured   { background: #dcfce7; color: #166534; border: 1px solid #86efac; }
+    .status-badge.missing      { background: #fef2f2; color: #991b1b; border: 1px solid #fca5a5; }
+    .status-badge.partial      { background: #fef3c7; color: #78350f; border: 1px solid #fcd34d; }
+    .status-badge.unknown-stat { background: #f3ede8;  color: #6b5045;  border: 1px solid #d4c5bb; }
+
+    /* ── Expand arrow ── */
+    .expand-arrow {
+      color: #9b7a6a; font-size: 0.75rem; flex-shrink: 0;
+      transition: transform .2s;
+    }
+    .card.expanded .expand-arrow { transform: rotate(180deg); }
+
+    /* ── Expanded panel ── */
+    .card-detail {
+      display: none;
+      border-top: 1px solid #e8ddd6;
+    }
+    .card.expanded .card-detail { display: block; }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+    @media (max-width: 580px) { .detail-grid { grid-template-columns: 1fr; } }
+
+    .detail-col {
+      padding: 20px 24px;
+    }
+    .detail-col:first-child { border-right: 1px solid #e8ddd6; }
+
+    .detail-label {
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .6px; color: #6b5045; margin-bottom: 12px;
+    }
+
+    .key-row {
+      display: flex; align-items: center; gap: 8px;
+      background: #f3ede8; border: 1px solid #e8ddd6;
+      border-radius: 8px; padding: 10px 12px;
+      margin-bottom: 12px;
+    }
+    .key-value {
+      flex: 1; font-family: 'Menlo', 'Monaco', monospace;
+      font-size: 0.8rem; color: #3b1a08; word-break: break-all;
+      min-width: 0;
+    }
+    .key-value.empty { color: #9b7a6a; font-style: italic; font-family: inherit; }
+
+    .icon-btn {
+      background: none; border: none; cursor: pointer;
+      font-size: 0.85rem; padding: 3px 5px; border-radius: 4px;
+      color: #6b5045; flex-shrink: 0;
+      transition: background .1s;
+    }
+    .icon-btn:hover { background: #e8ddd6; }
+
+    .meta-row {
+      display: flex; justify-content: space-between;
+      padding: 6px 0; border-bottom: 1px solid #f0e8e2;
+      font-size: 0.8rem;
+    }
+    .meta-row:last-child { border-bottom: none; }
+    .meta-row .k { color: #6b5045; }
+    .meta-row .v { font-weight: 600; text-align: right; max-width: 65%; word-break: break-all; }
+
+    /* ── Test result ── */
+    .test-result {
+      border-radius: 8px; padding: 10px 14px;
+      font-size: 0.82rem; line-height: 1.5;
+      display: flex; align-items: flex-start; gap: 8px;
+      margin-top: 12px; display: none;
+    }
+    .test-result.ok    { background: #f0fdf4; border: 1px solid #86efac; color: #14532d; }
+    .test-result.fail  { background: #fef2f2; border: 1px solid #fca5a5; color: #7f1d1d; }
+
+    /* ── Buttons ── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 16px; font-size: 0.83rem; font-weight: 600;
+      border: none; border-radius: 8px; cursor: pointer;
+      transition: all .15s; white-space: nowrap;
+    }
+    .btn-primary   { background: #b45309; color: #fff; }
+    .btn-primary:hover:not(:disabled) { background: #92400e; }
+    .btn-primary:disabled { background: #c9896a; cursor: not-allowed; }
+    .btn-secondary { background: #f3ede8; color: #3b1a08; border: 1px solid #e8ddd6; }
+    .btn-secondary:hover { background: #e8ddd6; }
+    .btn-sm { padding: 6px 12px; font-size: 0.77rem; }
+
+    .btn-group { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+
+    /* ── Spinner ── */
+    .spinner {
+      display: inline-block; width: 12px; height: 12px;
+      border: 2px solid rgba(255,255,255,.3);
+      border-top-color: #fff; border-radius: 50%;
+      animation: spin .7s linear infinite;
+    }
+    .spinner.dark {
+      border-color: rgba(0,0,0,.12);
+      border-top-color: #b45309;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Setup steps ── */
+    .steps-list {
+      list-style: none; counter-reset: steps;
+    }
+    .steps-list li {
+      counter-increment: steps;
+      display: flex; gap: 10px; align-items: flex-start;
+      font-size: 0.8rem; color: #6b5045; line-height: 1.5;
+      padding: 5px 0;
+    }
+    .steps-list li::before {
+      content: counter(steps);
+      background: #b45309; color: #fff;
+      border-radius: 50%; width: 18px; height: 18px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.65rem; font-weight: 700; flex-shrink: 0; margin-top: 1px;
+    }
+    .steps-list a { color: #b45309; }
+
+    code {
+      font-family: 'Menlo', 'Monaco', monospace;
+      font-size: .78em; background: #f3ede8;
+      padding: 1px 5px; border-radius: 4px; color: #3b1a08;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <h1>🔑 API Keys</h1>
+    <p>Manage external service integrations and credentials.</p>
+  </div>
+  <a href="/" class="back-link">← Dashboard</a>
+</header>
+
+<div class="banner">
+  <span class="banner-icon">🔒</span>
+  <span>Keys are stored in your <code>.env</code> file and never exposed in full. To change a key, edit <code>.env</code> and restart the server. This page lets you verify status and test live connectivity.</span>
+</div>
+
+<div id="keys-container">
+  <div style="text-align:center; padding:40px; color:#9b7a6a; font-size:.875rem;">
+    <span class="spinner dark" style="display:inline-block; margin-right:8px"></span>
+    Loading integrations…
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════
+//  SERVICE CONFIG (icons + setup docs)
+// ══════════════════════════════════════════════
+const SERVICE_META = {
+  nvidia: {
+    icon: '🤖',
+    setupSteps: [
+      'Go to <a href="https://integrate.api.nvidia.com" target="_blank">integrate.api.nvidia.com</a>',
+      'Sign up → Dashboard → Generate API Key',
+      'Copy the key and add to <code>.env</code>: <code>NVIDIA_API_KEY=nvapi-...</code>',
+      'Restart the server and click Test Connection',
+    ],
+    docs: 'https://integrate.api.nvidia.com',
+  },
+  ttapi: {
+    icon: '🎨',
+    setupSteps: [
+      'Go to <a href="https://ttapi.io" target="_blank">ttapi.io</a> and create an account',
+      'Dashboard → API Keys → Create new key',
+      'Add to <code>.env</code>: <code>TTAPI_API_KEY=your_key_here</code>',
+      'Ensure account has Midjourney credits loaded',
+      'Restart the server and click Test Connection',
+    ],
+    docs: 'https://ttapi.io',
+  },
+  sheets: {
+    icon: '📊',
+    setupSteps: [
+      'Go to <a href="https://console.cloud.google.com" target="_blank">Google Cloud Console</a> → New Project',
+      'Enable <strong>Google Sheets API</strong> and <strong>Google Drive API</strong>',
+      'IAM & Admin → Service Accounts → Create → download JSON key as <code>credentials.json</code>',
+      'Place <code>credentials.json</code> in the project root folder',
+      'Create a Google Sheet and share it with the service account email',
+      'Add to <code>.env</code>: <code>GOOGLE_SHEET_NAME=Your Sheet Name</code>',
+      'Restart the server and click Test Connection',
+    ],
+    docs: 'https://console.cloud.google.com',
+  },
+  wordpress: {
+    icon: '🌐',
+    setupSteps: [
+      'Log into your WordPress admin panel',
+      'Users → Profile → scroll down to <strong>Application Passwords</strong>',
+      'Create a new application password named "Automation"',
+      'Add to <code>.env</code>: <code>WORDPRESS_APP_PASSWORD=xxxx xxxx xxxx</code>',
+      'Also set <code>WORDPRESS_URL</code> and <code>WORDPRESS_USERNAME</code>',
+      'Manage per-site credentials in the <a href="/websites-page">Websites</a> page',
+    ],
+    docs: 'https://make.wordpress.org/core/2020/11/05/application-passwords-integration-guide/',
+  },
+};
+
+// ══════════════════════════════════════════════
+//  LOAD
+// ══════════════════════════════════════════════
+async function loadKeys() {
+  try {
+    const res  = await fetch('/api-keys');
+    const data = await res.json();
+    render(data.keys || []);
+  } catch (e) {
+    document.getElementById('keys-container').innerHTML =
+      `<div style="color:#991b1b;text-align:center;padding:30px">Failed to load: ${esc(e.message)}</div>`;
+  }
+}
+
+function render(keys) {
+  const container = document.getElementById('keys-container');
+  container.innerHTML = keys.map(k => buildCard(k)).join('');
+}
+
+function buildCard(k) {
+  const meta   = SERVICE_META[k.id] || { icon: '🔧', setupSteps: [] };
+  const status = k.configured ? 'configured' : 'missing';
+  const label  = k.configured ? 'Configured' : 'Not configured';
+
+  const extraRows = buildExtraRows(k);
+
+  return `
+  <div class="card" id="card-${k.id}">
+    <div class="card-top" onclick="toggleCard('${k.id}')">
+      <div class="status-icon unknown" id="icon-${k.id}">${meta.icon}</div>
+      <div class="card-info">
+        <div class="service-name">
+          ${esc(k.service)}
+          <span class="status-badge ${status}">${label}</span>
+        </div>
+        <div class="service-desc">${esc(k.description)}</div>
+        <div class="service-env">${esc(k.env_var)}</div>
+      </div>
+      <div class="expand-arrow">▼</div>
+    </div>
+
+    <div class="card-detail">
+      <div class="detail-grid">
+
+        <!-- LEFT: key value + test -->
+        <div class="detail-col">
+          <div class="detail-label">Credential</div>
+          <div class="key-row">
+            <span class="key-value ${k.masked ? '' : 'empty'}" id="kv-${k.id}">
+              ${k.masked ? esc(k.masked) : 'Not set — see setup guide →'}
+            </span>
+            ${k.masked ? `<button class="icon-btn" onclick="copyKey('${k.id}')" title="Copy masked value">📋</button>` : ''}
+          </div>
+
+          ${extraRows}
+
+          <div class="btn-group">
+            <button class="btn btn-primary btn-sm" id="test-btn-${k.id}" onclick="testKey('${k.id}')">
+              🔌 Test Connection
+            </button>
+          </div>
+          <div class="test-result" id="test-result-${k.id}"></div>
+        </div>
+
+        <!-- RIGHT: setup guide -->
+        <div class="detail-col">
+          <div class="detail-label">Setup Guide</div>
+          <ol class="steps-list">
+            ${(meta.setupSteps || []).map(s => `<li>${s}</li>`).join('')}
+          </ol>
+          ${meta.docs ? `
+          <div style="margin-top:14px">
+            <a href="${meta.docs}" target="_blank" class="btn btn-secondary btn-sm">
+              📖 Open Docs ↗
+            </a>
+          </div>` : ''}
+        </div>
+
+      </div>
+    </div>
+  </div>`;
+}
+
+function buildExtraRows(k) {
+  if (!k.extra) return '';
+  const rows = [];
+
+  if (k.id === 'sheets') {
+    rows.push({ k: 'Sheet Name',       v: k.extra.sheet_name  || '—' });
+    rows.push({ k: 'credentials.json', v: k.extra.creds_present ? '✅ Found' : '❌ Missing' });
+  }
+  if (k.id === 'wordpress') {
+    rows.push({ k: 'Site URL',  v: k.extra.url      || '—' });
+    rows.push({ k: 'Username',  v: k.extra.username  || '—' });
+  }
+
+  if (!rows.length) return '';
+  return `<div style="margin-bottom:12px">${rows.map(r =>
+    `<div class="meta-row"><span class="k">${esc(r.k)}</span><span class="v">${esc(String(r.v))}</span></div>`
+  ).join('')}</div>`;
+}
+
+// ══════════════════════════════════════════════
+//  TOGGLE CARD
+// ══════════════════════════════════════════════
+function toggleCard(id) {
+  const card = document.getElementById(`card-${id}`);
+  card.classList.toggle('expanded');
+}
+
+// ══════════════════════════════════════════════
+//  TEST CONNECTION
+// ══════════════════════════════════════════════
+async function testKey(id) {
+  const btn    = document.getElementById(`test-btn-${id}`);
+  const result = document.getElementById(`test-result-${id}`);
+  const icon   = document.getElementById(`icon-${id}`);
+  const meta   = SERVICE_META[id] || {};
+
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Testing…';
+  result.style.display = 'none';
+  icon.className = 'status-icon testing';
+  icon.textContent = '⏳';
+
+  try {
+    const res  = await fetch(`/api-keys/test/${id}`, { method: 'POST' });
+    const data = await res.json();
+
+    if (data.ok) {
+      icon.className  = 'status-icon ok';
+      icon.textContent = meta.icon || '✅';
+      result.className = 'test-result ok';
+      result.innerHTML = `✅ ${esc(data.message)}`;
+    } else {
+      icon.className  = 'status-icon error';
+      icon.textContent = '❌';
+      result.className = 'test-result fail';
+      result.innerHTML = `❌ ${esc(data.message)}`;
+    }
+    result.style.display = 'flex';
+  } catch (e) {
+    icon.className  = 'status-icon error';
+    icon.textContent = '❌';
+    result.className = 'test-result fail';
+    result.innerHTML = `❌ Request failed: ${esc(e.message)}`;
+    result.style.display = 'flex';
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '🔌 Test Connection';
+  }
+}
+
+// ══════════════════════════════════════════════
+//  COPY
+// ══════════════════════════════════════════════
+function copyKey(id) {
+  const val = document.getElementById(`kv-${id}`).textContent.trim();
+  navigator.clipboard.writeText(val).catch(() => {});
+  const btn = event.target;
+  btn.textContent = '✅';
+  setTimeout(() => btn.textContent = '📋', 1500);
+}
+
+// ══════════════════════════════════════════════
+//  UTIL
+// ══════════════════════════════════════════════
+function esc(str) {
+  return String(str || '')
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+loadKeys();
+</script>
+</body>
+</html>

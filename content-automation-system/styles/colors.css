@@ -1,0 +1,462 @@
+/**
+ * YARA BITES Color System - CSS Utilities
+ * Premium Editorial Food Blog Color Palette
+ *
+ * Add this file to your global styles:
+ * @import '@/styles/colors.css'
+ */
+
+@layer components {
+  /* ========================================
+     SURFACE COLORS
+     ======================================== */
+
+  .surface-white {
+    @apply bg-white;
+  }
+
+  .surface-warm {
+    @apply bg-surface-warm;
+  }
+
+  .surface-cream {
+    @apply bg-surface-cream;
+  }
+
+  .surface-beige {
+    @apply bg-surface-beige;
+  }
+
+  /* ========================================
+     TEXT COLORS
+     ======================================== */
+
+  .text-heading {
+    @apply text-text-primary font-semibold;
+  }
+
+  .text-body-default {
+    @apply text-text-secondary;
+  }
+
+  .text-body-muted {
+    @apply text-text-muted;
+  }
+
+  .text-inverse {
+    @apply text-white;
+  }
+
+  .text-brand-accent {
+    @apply text-brand-gold;
+  }
+
+  /* ========================================
+     INTERACTIVE COLORS
+     ======================================== */
+
+  /* Primary Button */
+  .btn-primary {
+    @apply bg-interactive-primary text-white;
+    @apply hover:bg-interactive-primary-hover;
+    @apply active:bg-interactive-primary-active;
+    @apply transition-colors duration-200;
+    @apply focus:outline-none focus:ring-2 focus:ring-interactive-focus-ring focus:ring-offset-2;
+  }
+
+  /* Secondary Button */
+  .btn-secondary {
+    @apply border border-interactive-secondary-border;
+    @apply text-interactive-secondary-text;
+    @apply bg-transparent;
+    @apply hover:bg-interactive-secondary-hover;
+    @apply transition-colors duration-200;
+    @apply focus:outline-none focus:ring-2 focus:ring-interactive-focus-ring focus:ring-offset-2;
+  }
+
+  /* Tertiary Button */
+  .btn-tertiary {
+    @apply text-interactive-primary;
+    @apply bg-transparent;
+    @apply hover:text-interactive-primary-hover;
+    @apply transition-colors duration-200;
+  }
+
+  /* Link Styles */
+  .link-primary {
+    @apply text-interactive-link;
+    @apply hover:text-interactive-link-hover;
+    @apply transition-colors duration-200;
+    @apply underline-offset-2 hover:underline;
+    @apply focus:outline-none focus:ring-2 focus:ring-interactive-focus-ring rounded px-1;
+  }
+
+  .link-unstyled {
+    @apply text-interactive-link;
+    @apply hover:text-interactive-link-hover;
+    @apply transition-colors duration-200;
+    @apply focus:outline-none focus:ring-2 focus:ring-interactive-focus-ring rounded px-1;
+  }
+
+  /* ========================================
+     BORDER STYLES
+     ======================================== */
+
+  .border-soft {
+    @apply border border-border-soft;
+  }
+
+  .border-light {
+    @apply border border-border-light;
+  }
+
+  .divider-soft {
+    @apply divide-border-soft;
+  }
+
+  .divider-light {
+    @apply divide-border-light;
+  }
+
+  /* ========================================
+     CARD STYLES
+     ======================================== */
+
+  .card {
+    @apply bg-white;
+    @apply rounded-lg;
+    @apply border border-border-soft;
+    @apply shadow-soft;
+    @apply transition-all duration-300;
+  }
+
+  .card-hover {
+    @apply card;
+    @apply hover:shadow-hover hover:border-interactive-secondary-border;
+  }
+
+  .card-elevated {
+    @apply bg-white;
+    @apply rounded-lg;
+    @apply shadow-medium;
+  }
+
+  /* ========================================
+     INPUT STYLES
+     ======================================== */
+
+  .input-base {
+    @apply w-full;
+    @apply px-4 py-2;
+    @apply bg-white;
+    @apply border border-border-soft;
+    @apply rounded-lg;
+    @apply text-text-primary;
+    @apply placeholder-text-muted;
+    @apply transition-colors duration-200;
+    @apply focus:outline-none focus:ring-2 focus:ring-interactive-focus-ring focus:ring-offset-1;
+  }
+
+  .input-base:hover {
+    @apply border-interactive-secondary-border;
+  }
+
+  .input-error {
+    @apply border-status-error focus:ring-status-error;
+  }
+
+  .input-success {
+    @apply border-status-success focus:ring-status-success;
+  }
+
+  /* ========================================
+     STATUS COLORS
+     ======================================== */
+
+  .badge-success {
+    @apply bg-status-success-bg text-status-success;
+    @apply px-3 py-1 rounded-full text-sm font-medium;
+  }
+
+  .badge-error {
+    @apply bg-status-error-bg text-status-error;
+    @apply px-3 py-1 rounded-full text-sm font-medium;
+  }
+
+  .badge-warning {
+    @apply bg-status-warning-bg text-status-warning;
+    @apply px-3 py-1 rounded-full text-sm font-medium;
+  }
+
+  .status-message-success {
+    @apply text-status-success;
+  }
+
+  .status-message-error {
+    @apply text-status-error;
+  }
+
+  .status-message-warning {
+    @apply text-status-warning;
+  }
+
+  /* ========================================
+     CATEGORY COLORS
+     ======================================== */
+
+  .category-breakfast {
+    @apply bg-category-breakfast text-text-primary;
+  }
+
+  .category-lunch {
+    @apply bg-category-lunch text-text-primary;
+  }
+
+  .category-dinner {
+    @apply bg-category-dinner text-text-primary;
+  }
+
+  .category-dessert {
+    @apply bg-category-dessert text-text-primary;
+  }
+
+  .category-healthy {
+    @apply bg-category-healthy text-text-primary;
+  }
+
+  .category-quick {
+    @apply bg-category-quick-meals text-text-primary;
+  }
+
+  /* Category Badge */
+  .category-badge {
+    @apply inline-flex items-center;
+    @apply px-3 py-1;
+    @apply rounded-full;
+    @apply text-sm font-medium;
+    @apply border border-current;
+    @apply opacity-75;
+  }
+
+  /* ========================================
+     HIGHLIGHT & ACCENT COLORS
+     ======================================== */
+
+  .highlight-brand {
+    @apply text-brand-gold;
+  }
+
+  .bg-highlight-subtle {
+    @apply bg-brand-gold/10;
+  }
+
+  .accent-line {
+    @apply border-b-2 border-brand-gold;
+  }
+
+  .accent-glow {
+    @apply bg-gradient-accent-glow;
+  }
+
+  /* ========================================
+     SHADOW UTILITIES
+     ======================================== */
+
+  .shadow-soft {
+    @apply shadow-soft;
+  }
+
+  .shadow-medium {
+    @apply shadow-medium;
+  }
+
+  .shadow-hover {
+    @apply shadow-hover;
+  }
+
+  /* ========================================
+     GRADIENT UTILITIES
+     ======================================== */
+
+  .gradient-editorial {
+    @apply bg-gradient-editorial;
+  }
+
+  .gradient-cta {
+    @apply bg-gradient-cta;
+  }
+
+  .gradient-accent {
+    @apply bg-gradient-accent-glow;
+  }
+
+  /* ========================================
+     BACKGROUND PATTERNS
+     ======================================== */
+
+  .bg-editorial {
+    @apply bg-gradient-editorial;
+  }
+
+  .bg-premium {
+    @apply bg-surface-warm;
+  }
+
+  /* ========================================
+     HOVER STATES
+     ======================================== */
+
+  .hover-elevated {
+    @apply transition-all duration-300;
+    @apply hover:shadow-hover hover:-translate-y-0.5;
+  }
+
+  .hover-text {
+    @apply transition-colors duration-300;
+    @apply hover:text-text-primary;
+  }
+
+  .hover-bg {
+    @apply transition-colors duration-300;
+    @apply hover:bg-surface-cream;
+  }
+
+  /* ========================================
+     FOCUS STATES
+     ======================================== */
+
+  .focus-brand {
+    @apply focus:outline-none focus:ring-2 focus:ring-interactive-focus-ring focus:ring-offset-2;
+  }
+
+  .focus-visible {
+    @apply focus:outline-none;
+    @apply focus-visible:ring-2 focus-visible:ring-interactive-focus-ring focus-visible:ring-offset-2;
+  }
+
+  /* ========================================
+     COLOR OVERLAYS
+     ======================================== */
+
+  .overlay-dark {
+    @apply bg-black/40;
+  }
+
+  .overlay-light {
+    @apply bg-white/80;
+  }
+
+  .overlay-brand {
+    @apply bg-brand-brown/10;
+  }
+
+  /* ========================================
+     TEXT TRANSFORMS
+     ======================================== */
+
+  .text-uppercase {
+    @apply uppercase tracking-wide;
+  }
+
+  .text-capitalize {
+    @apply capitalize;
+  }
+
+  .text-lowercase {
+    @apply lowercase;
+  }
+
+  /* ========================================
+     COLOR HIERARCHY
+     ======================================== */
+
+  .hierarchy-h1 {
+    @apply text-text-primary font-bold;
+  }
+
+  .hierarchy-h2 {
+    @apply text-text-primary font-semibold;
+  }
+
+  .hierarchy-h3 {
+    @apply text-text-secondary font-semibold;
+  }
+
+  .hierarchy-body {
+    @apply text-text-secondary;
+  }
+
+  .hierarchy-meta {
+    @apply text-text-muted text-sm;
+  }
+
+  .hierarchy-label {
+    @apply text-text-muted text-xs uppercase tracking-wide;
+  }
+
+  /* ========================================
+     ACCESSIBILITY ENHANCEMENTS
+     ======================================== */
+
+  /* High contrast mode support */
+  @media (prefers-contrast: more) {
+    .btn-primary {
+      @apply border-2 border-text-primary;
+    }
+
+    .link-primary {
+      @apply underline;
+    }
+
+    .text-body-muted {
+      @apply text-text-secondary;
+    }
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .btn-primary,
+    .btn-secondary,
+    .link-primary,
+    .card,
+    .hover-elevated,
+    .hover-text,
+    .hover-bg {
+      @apply transition-none;
+    }
+  }
+
+  /* Dark mode support (optional) */
+  @media (prefers-color-scheme: dark) {
+    /* Can be extended if dark mode is implemented */
+    body {
+      @apply bg-surface-warm;
+    }
+  }
+}
+
+/* ========================================
+   PRINT STYLES
+   ======================================== */
+
+@media print {
+  .btn-primary,
+  .btn-secondary,
+  .btn-tertiary {
+    @apply border border-text-primary;
+    @apply text-text-primary;
+    @apply bg-transparent;
+  }
+
+  .shadow-soft,
+  .shadow-medium,
+  .shadow-hover {
+    @apply shadow-none;
+  }
+
+  .gradient-editorial,
+  .gradient-cta,
+  .gradient-accent {
+    @apply bg-white;
+  }
+}

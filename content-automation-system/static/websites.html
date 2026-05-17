@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Websites — Choco Kitchen</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #faf7f4;
+      color: #1a1a1a;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px 60px;
+    }
+
+    /* ── Header ── */
+    header {
+      width: 100%;
+      max-width: 780px;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .header-left h1 { font-size: 1.5rem; color: #3b1a08; letter-spacing: -0.3px; }
+    .header-left p  { margin-top: 4px; color: #6b5045; font-size: 0.875rem; }
+    .back-link {
+      font-size: 0.82rem; color: #b45309; font-weight: 600;
+      text-decoration: none; padding: 7px 14px;
+      border: 1px solid #d4c5bb; border-radius: 8px;
+      background: #fff; white-space: nowrap;
+    }
+    .back-link:hover { background: #f3ede8; }
+
+    /* ── Card ── */
+    .card {
+      background: #fff;
+      border: 1px solid #e8ddd6;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 780px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.05);
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+    .card-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 24px;
+      border-bottom: 1px solid #e8ddd6;
+    }
+    .card-title {
+      font-size: 0.78rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .6px; color: #6b5045;
+    }
+    .card-body { padding: 24px; }
+
+    /* ── Buttons ── */
+    button, .btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 9px 16px; font-size: 0.875rem; font-weight: 600;
+      border: none; border-radius: 8px; cursor: pointer;
+      transition: background .15s; white-space: nowrap;
+      text-decoration: none;
+    }
+    .btn-primary  { background: #b45309; color: #fff; }
+    .btn-primary:hover:not(:disabled) { background: #92400e; }
+    .btn-primary:disabled { background: #c9896a; cursor: not-allowed; }
+    .btn-secondary { background: #f3ede8; color: #3b1a08; border: 1px solid #e8ddd6; }
+    .btn-secondary:hover { background: #e8ddd6; }
+    .btn-danger { background: #fff0f0; color: #dc2626; border: 1px solid #fca5a5; }
+    .btn-danger:hover { background: #fee2e2; }
+    .btn-sm { padding: 6px 11px; font-size: 0.78rem; }
+    .btn-xs { padding: 4px 8px; font-size: 0.72rem; }
+
+    /* ── Form ── */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 560px) { .form-grid { grid-template-columns: 1fr; } }
+
+    .form-group { display: flex; flex-direction: column; gap: 5px; }
+    .form-group.full { grid-column: 1 / -1; }
+    label {
+      font-size: 0.78rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .5px; color: #6b5045;
+    }
+    label .req { color: #dc2626; }
+    input[type="text"], input[type="url"], input[type="password"] {
+      padding: 10px 12px; font-size: 0.9rem;
+      border: 1px solid #d4c5bb; border-radius: 8px;
+      outline: none; transition: border-color .2s; background: #fff;
+      color: #1a1a1a; width: 100%;
+    }
+    input:focus  { border-color: #b45309; }
+    input.error  { border-color: #dc2626; }
+    .field-error { font-size: 0.72rem; color: #dc2626; }
+    .field-hint  { font-size: 0.72rem; color: #9b7a6a; }
+
+    .form-actions {
+      display: flex; gap: 10px; align-items: center;
+      margin-top: 20px; padding-top: 20px;
+      border-top: 1px solid #e8ddd6;
+    }
+
+    /* ── Spinner ── */
+    .spinner {
+      display: inline-block; width: 13px; height: 13px;
+      border: 2px solid rgba(255,255,255,.35);
+      border-top-color: #fff; border-radius: 50%;
+      animation: spin .7s linear infinite;
+    }
+    .spinner.dark {
+      border-color: rgba(0,0,0,.15);
+      border-top-color: #b45309;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Status / Alert boxes ── */
+    .alert {
+      border-radius: 8px; padding: 12px 16px;
+      font-size: 0.85rem; line-height: 1.5;
+      display: flex; align-items: flex-start; gap: 10px;
+    }
+    .alert.success { background: #f0fdf4; border: 1px solid #86efac; color: #14532d; }
+    .alert.error   { background: #fef2f2; border: 1px solid #fca5a5; color: #7f1d1d; }
+    .alert.info    { background: #fef3c7; border: 1px solid #fcd34d; color: #78350f; }
+    .alert-icon    { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+
+    /* ── Websites list ── */
+    .site-list { display: flex; flex-direction: column; }
+    .site-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: start;
+      padding: 18px 24px;
+      border-bottom: 1px solid #e8ddd6;
+      transition: background .1s;
+    }
+    .site-row:last-child { border-bottom: none; }
+    .site-row:hover { background: #fdf9f7; }
+
+    .site-info { min-width: 0; }
+    .site-name {
+      font-weight: 700; font-size: 0.95rem; color: #3b1a08;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .site-url  { font-size: 0.8rem; color: #6b5045; margin-top: 3px; word-break: break-all; }
+    .site-meta { font-size: 0.75rem; color: #9b7a6a; margin-top: 4px; }
+
+    .site-actions { display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
+
+    .status-dot {
+      display: inline-block; width: 8px; height: 8px;
+      border-radius: 50%; flex-shrink: 0;
+    }
+    .status-dot.ok   { background: #16a34a; box-shadow: 0 0 0 2px #dcfce7; }
+    .status-dot.unknown { background: #d4c5bb; }
+    .status-dot.checking { background: #f59e0b; animation: dotpulse 1s ease-in-out infinite; }
+    @keyframes dotpulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+    /* ── Password toggle ── */
+    .password-wrap { position: relative; }
+    .password-wrap input { padding-right: 40px; }
+    .password-toggle {
+      position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+      background: none; border: none; padding: 4px; cursor: pointer;
+      color: #9b7a6a; font-size: 0.85rem;
+    }
+    .password-toggle:hover { color: #b45309; }
+
+    /* ── Empty state ── */
+    .empty-state {
+      text-align: center; padding: 40px 20px; color: #9b7a6a;
+    }
+    .empty-state .icon { font-size: 2.2rem; margin-bottom: 10px; }
+    .empty-state p { font-size: 0.875rem; }
+
+    /* ── Modal ── */
+    #modal-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(59, 26, 8, .45);
+      z-index: 100; align-items: center; justify-content: center;
+      padding: 20px;
+    }
+    #modal-overlay.open { display: flex; }
+    .modal {
+      background: #fff; border-radius: 14px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.2);
+      width: 100%; max-width: 520px;
+      overflow: hidden;
+      animation: modalIn .18s ease;
+    }
+    @keyframes modalIn { from { opacity:0; transform: scale(.96) translateY(8px); } }
+    .modal-header {
+      padding: 20px 24px 16px;
+      border-bottom: 1px solid #e8ddd6;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .modal-header h2 { font-size: 1.05rem; color: #3b1a08; }
+    .modal-close {
+      background: #f3ede8; border: none; border-radius: 6px;
+      width: 30px; height: 30px; font-size: 1rem;
+      cursor: pointer; color: #6b5045; display: flex;
+      align-items: center; justify-content: center;
+    }
+    .modal-close:hover { background: #e8ddd6; }
+    .modal-body { padding: 24px; }
+    .modal-footer {
+      padding: 16px 24px; border-top: 1px solid #e8ddd6;
+      display: flex; gap: 10px; justify-content: flex-end;
+    }
+
+    /* ── Delete confirm ── */
+    #confirm-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(59, 26, 8, .45);
+      z-index: 110; align-items: center; justify-content: center;
+      padding: 20px;
+    }
+    #confirm-overlay.open { display: flex; }
+    .confirm-box {
+      background: #fff; border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.2);
+      width: 100%; max-width: 380px; padding: 28px 24px;
+      text-align: center; animation: modalIn .15s ease;
+    }
+    .confirm-box h3 { font-size: 1rem; color: #3b1a08; margin-bottom: 8px; }
+    .confirm-box p  { font-size: 0.83rem; color: #6b5045; margin-bottom: 20px; line-height: 1.5; }
+    .confirm-actions { display: flex; gap: 10px; justify-content: center; }
+
+    /* ── Separator ── */
+    .sep { border: none; border-top: 1px solid #e8ddd6; margin: 0; }
+
+    /* ── Inline alert ── */
+    #form-alert, #list-alert { margin-bottom: 16px; display: none; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <h1>🌐 Websites Manager</h1>
+    <p>Manage your WordPress sites for multi-site publishing.</p>
+  </div>
+  <a href="/" class="back-link">← Back to Dashboard</a>
+</header>
+
+<!-- ── WEBSITES LIST ── -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-title">Saved Websites</div>
+    <button class="btn btn-primary btn-sm" onclick="openAddModal()">+ Add Website</button>
+  </div>
+  <div id="list-alert" class="alert error" style="margin:16px 24px 0; display:none">
+    <span class="alert-icon">⚠️</span><span id="list-alert-msg"></span>
+  </div>
+  <div id="site-list">
+    <div class="empty-state">
+      <div class="spinner dark" style="margin:0 auto 12px"></div>
+      <p>Loading websites…</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── ADD WEBSITE MODAL ── -->
+<div id="modal-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>Add New Website</h2>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div id="form-alert" class="alert error">
+        <span class="alert-icon">⚠️</span><span id="form-alert-msg"></span>
+      </div>
+      <div class="form-grid">
+
+        <div class="form-group full">
+          <label>Site Name <span class="req">*</span></label>
+          <input type="text" id="f-name" placeholder="e.g. Choco Kitchen" autocomplete="off">
+          <span class="field-error" id="e-name"></span>
+        </div>
+
+        <div class="form-group full">
+          <label>Base URL <span class="req">*</span></label>
+          <input type="url" id="f-url" placeholder="https://your-site.com" autocomplete="off">
+          <span class="field-hint">Include https://, no trailing slash</span>
+          <span class="field-error" id="e-url"></span>
+        </div>
+
+        <div class="form-group">
+          <label>WP Username <span class="req">*</span></label>
+          <input type="text" id="f-user" placeholder="admin" autocomplete="off">
+          <span class="field-error" id="e-user"></span>
+        </div>
+
+        <div class="form-group">
+          <label>App Password <span class="req">*</span></label>
+          <div class="password-wrap">
+            <input type="password" id="f-pass" placeholder="xxxx xxxx xxxx xxxx" autocomplete="new-password">
+            <button type="button" class="password-toggle" onclick="togglePass()" title="Show/hide password">👁</button>
+          </div>
+          <span class="field-hint">WordPress → Users → Application Passwords</span>
+          <span class="field-error" id="e-pass"></span>
+        </div>
+
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary" id="save-btn" onclick="saveWebsite()">
+        <span id="save-icon">💾</span>
+        <span id="save-label">Save Website</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ── DELETE CONFIRM ── -->
+<div id="confirm-overlay">
+  <div class="confirm-box">
+    <h3>Delete Website?</h3>
+    <p id="confirm-msg">This action cannot be undone.</p>
+    <div class="confirm-actions">
+      <button class="btn btn-secondary" onclick="closeConfirm()">Cancel</button>
+      <button class="btn btn-danger" id="confirm-yes-btn" onclick="confirmDelete()">Delete</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════════
+let deleteTargetId   = null;
+let deleteTargetName = '';
+
+// ══════════════════════════════════════════════
+//  LOAD LIST
+// ══════════════════════════════════════════════
+async function loadWebsites() {
+  const container = document.getElementById('site-list');
+  try {
+    const res  = await fetch('/websites');
+    if (!res.ok) throw new Error(await res.text());
+    const data = await res.json();
+    renderList(data.websites || []);
+  } catch (e) {
+    container.innerHTML = '';
+    showListAlert('Failed to load websites: ' + e.message);
+  }
+}
+
+function renderList(sites) {
+  const container = document.getElementById('site-list');
+
+  if (!sites.length) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="icon">🌐</div>
+        <p>No websites added yet.</p>
+        <p style="margin-top:6px">Click <strong>+ Add Website</strong> to get started.</p>
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = `<div class="site-list">` +
+    sites.map(s => `
+      <div class="site-row" id="site-row-${s.id}">
+        <div class="site-info">
+          <div class="site-name">
+            <span class="status-dot unknown" id="dot-${s.id}" title="Connection not tested"></span>
+            ${esc(s.name)}
+          </div>
+          <div class="site-url">🔗 ${esc(s.base_url)}</div>
+          <div class="site-meta">User: ${esc(s.username)} &nbsp;·&nbsp; Added: ${fmtDate(s.created_at)}</div>
+        </div>
+        <div class="site-actions">
+          <button class="btn btn-secondary btn-xs" onclick="testConnection(${s.id}, '${esc(s.base_url)}', '${esc(s.username)}')" title="Test WordPress connection">
+            🔌 Test
+          </button>
+          <button class="btn btn-danger btn-xs" onclick="askDelete(${s.id}, '${esc(s.name)}')">
+            🗑 Delete
+          </button>
+        </div>
+      </div>`).join('') +
+    `</div>`;
+}
+
+// ══════════════════════════════════════════════
+//  TEST CONNECTION
+// ══════════════════════════════════════════════
+async function testConnection(id, baseUrl, username) {
+  const dot = document.getElementById(`dot-${id}`);
+  dot.className = 'status-dot checking';
+  dot.title = 'Checking…';
+
+  // Try hitting the WP REST API root — no auth needed, just checks reachability
+  const wpApi = baseUrl.replace(/\/$/, '') + '/wp-json/wp/v2/';
+  try {
+    const res = await fetch(wpApi, { signal: AbortSignal.timeout(8000) });
+    if (res.ok || res.status === 401) {
+      // 401 = auth needed but endpoint exists — connection works
+      dot.className = 'status-dot ok';
+      dot.title = 'Connected ✓';
+    } else {
+      throw new Error('HTTP ' + res.status);
+    }
+  } catch (e) {
+    dot.className = 'status-dot unknown';
+    dot.title = 'Connection failed: ' + e.message;
+    dot.style.background = '#dc2626';
+  }
+}
+
+// ══════════════════════════════════════════════
+//  ADD WEBSITE MODAL
+// ══════════════════════════════════════════════
+function openAddModal() {
+  clearForm();
+  document.getElementById('modal-overlay').classList.add('open');
+  setTimeout(() => document.getElementById('f-name').focus(), 50);
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  clearForm();
+}
+
+function clearForm() {
+  ['f-name','f-url','f-user','f-pass'].forEach(id => {
+    const el = document.getElementById(id);
+    el.value = '';
+    el.classList.remove('error');
+  });
+  ['e-name','e-url','e-user','e-pass'].forEach(id => {
+    document.getElementById(id).textContent = '';
+  });
+  document.getElementById('form-alert').style.display = 'none';
+  setSaving(false);
+}
+
+function togglePass() {
+  const inp = document.getElementById('f-pass');
+  inp.type = inp.type === 'password' ? 'text' : 'password';
+}
+
+// ══════════════════════════════════════════════
+//  SAVE WEBSITE
+// ══════════════════════════════════════════════
+async function saveWebsite() {
+  const name = document.getElementById('f-name').value.trim();
+  const url  = document.getElementById('f-url').value.trim();
+  const user = document.getElementById('f-user').value.trim();
+  const pass = document.getElementById('f-pass').value.trim();
+
+  // Client-side validation
+  let valid = true;
+
+  if (!name) {
+    setFieldError('f-name', 'e-name', 'Site name is required.');
+    valid = false;
+  } else {
+    clearFieldError('f-name', 'e-name');
+  }
+
+  if (!url) {
+    setFieldError('f-url', 'e-url', 'Base URL is required.');
+    valid = false;
+  } else if (!/^https?:\/\/.+\..+/.test(url)) {
+    setFieldError('f-url', 'e-url', 'Enter a valid URL starting with http:// or https://');
+    valid = false;
+  } else {
+    clearFieldError('f-url', 'e-url');
+  }
+
+  if (!user) {
+    setFieldError('f-user', 'e-user', 'WordPress username is required.');
+    valid = false;
+  } else {
+    clearFieldError('f-user', 'e-user');
+  }
+
+  if (!pass) {
+    setFieldError('f-pass', 'e-pass', 'Application password is required.');
+    valid = false;
+  } else {
+    clearFieldError('f-pass', 'e-pass');
+  }
+
+  if (!valid) return;
+
+  setSaving(true);
+  document.getElementById('form-alert').style.display = 'none';
+
+  try {
+    const res = await fetch('/websites', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, base_url: url, username: user, password: pass }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.detail || res.statusText);
+
+    closeModal();
+    await loadWebsites();
+    showListSuccess(`"${name}" was added successfully.`);
+  } catch (e) {
+    showFormAlert(e.message);
+    setSaving(false);
+  }
+}
+
+function setSaving(on) {
+  const btn   = document.getElementById('save-btn');
+  const icon  = document.getElementById('save-icon');
+  const label = document.getElementById('save-label');
+  btn.disabled = on;
+  icon.innerHTML = on ? '<span class="spinner"></span>' : '💾';
+  label.textContent = on ? 'Saving…' : 'Save Website';
+}
+
+// ══════════════════════════════════════════════
+//  DELETE
+// ══════════════════════════════════════════════
+function askDelete(id, name) {
+  deleteTargetId   = id;
+  deleteTargetName = name;
+  document.getElementById('confirm-msg').textContent =
+    `"${name}" and all its settings will be permanently removed.`;
+  document.getElementById('confirm-overlay').classList.add('open');
+}
+
+function closeConfirm() {
+  document.getElementById('confirm-overlay').classList.remove('open');
+  deleteTargetId = null;
+}
+
+async function confirmDelete() {
+  if (!deleteTargetId) return;
+  const btn = document.getElementById('confirm-yes-btn');
+  btn.disabled = true;
+  btn.textContent = 'Deleting…';
+
+  try {
+    const res = await fetch(`/websites/${deleteTargetId}`, { method: 'DELETE' });
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      throw new Error(data.detail || res.statusText);
+    }
+    closeConfirm();
+    await loadWebsites();
+    showListSuccess(`"${deleteTargetName}" was deleted.`);
+  } catch (e) {
+    closeConfirm();
+    showListAlert('Delete failed: ' + e.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Delete';
+  }
+}
+
+// ══════════════════════════════════════════════
+//  ALERTS
+// ══════════════════════════════════════════════
+function showFormAlert(msg) {
+  const el = document.getElementById('form-alert');
+  document.getElementById('form-alert-msg').textContent = msg;
+  el.className = 'alert error';
+  el.style.display = 'flex';
+}
+
+let listAlertTimer = null;
+function showListAlert(msg) {
+  const el = document.getElementById('list-alert');
+  document.getElementById('list-alert-msg').textContent = msg;
+  el.className = 'alert error';
+  el.style.display = 'flex';
+  clearTimeout(listAlertTimer);
+  listAlertTimer = setTimeout(() => { el.style.display = 'none'; }, 5000);
+}
+function showListSuccess(msg) {
+  const el = document.getElementById('list-alert');
+  document.getElementById('list-alert-msg').textContent = msg;
+  el.className = 'alert success';
+  el.style.display = 'flex';
+  clearTimeout(listAlertTimer);
+  listAlertTimer = setTimeout(() => { el.style.display = 'none'; }, 4000);
+}
+
+// ══════════════════════════════════════════════
+//  FIELD HELPERS
+// ══════════════════════════════════════════════
+function setFieldError(inputId, errId, msg) {
+  document.getElementById(inputId).classList.add('error');
+  document.getElementById(errId).textContent = msg;
+}
+function clearFieldError(inputId, errId) {
+  document.getElementById(inputId).classList.remove('error');
+  document.getElementById(errId).textContent = '';
+}
+
+// ══════════════════════════════════════════════
+//  UTILS
+// ══════════════════════════════════════════════
+function fmtDate(s) {
+  if (!s) return '—';
+  const d    = new Date(s);
+  const now  = new Date();
+  const diff = (now - d) / 1000;
+  if (diff < 60)    return Math.round(diff) + 's ago';
+  if (diff < 3600)  return Math.round(diff / 60) + 'm ago';
+  if (diff < 86400) return Math.round(diff / 3600) + 'h ago';
+  return d.toLocaleDateString('en', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+function esc(str) {
+  return String(str || '')
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+// ══════════════════════════════════════════════
+//  KEYBOARD
+// ══════════════════════════════════════════════
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    closeModal();
+    closeConfirm();
+  }
+});
+
+// Close modal on overlay click
+document.getElementById('modal-overlay').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+document.getElementById('confirm-overlay').addEventListener('click', function(e) {
+  if (e.target === this) closeConfirm();
+});
+
+// ══════════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════════
+loadWebsites();
+</script>
+</body>
+</html>

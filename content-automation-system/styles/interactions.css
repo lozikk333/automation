@@ -1,0 +1,330 @@
+/**
+ * YARA BITES Interaction Design System
+ * Premium editorial food-site interaction utilities.
+ *
+ * Add this file to global styles:
+ * @import "@/styles/interactions.css";
+ */
+
+@layer base {
+  :root {
+    --yb-shadow-xs: 0 1px 2px rgba(31, 31, 31, 0.04);
+    --yb-shadow-sm: 0 4px 12px rgba(31, 31, 31, 0.06);
+    --yb-shadow-md: 0 10px 24px rgba(31, 31, 31, 0.08);
+    --yb-shadow-lg: 0 18px 40px rgba(31, 31, 31, 0.12);
+    --yb-shadow-hover: 0 20px 48px rgba(31, 31, 31, 0.14);
+
+    --yb-border-light: #f1ece5;
+    --yb-border-soft: #e8e1d8;
+    --yb-border-emphasis: #d9cbb7;
+
+    --yb-radius-sm: 8px;
+    --yb-radius-md: 16px;
+    --yb-radius-lg: 24px;
+    --yb-radius-xl: 32px;
+    --yb-radius-full: 9999px;
+
+    --yb-focus-ring: 0 0 0 4px rgba(198, 168, 122, 0.2);
+    --yb-ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
+    --yb-duration-fast: 200ms;
+    --yb-duration-default: 280ms;
+    --yb-duration-slow: 350ms;
+  }
+
+  :focus-visible {
+    outline: none;
+    box-shadow: var(--yb-focus-ring);
+  }
+}
+
+@layer utilities {
+  .shadow-soft-xs {
+    box-shadow: var(--yb-shadow-xs);
+  }
+
+  .shadow-soft-sm {
+    box-shadow: var(--yb-shadow-sm);
+  }
+
+  .shadow-soft-md {
+    box-shadow: var(--yb-shadow-md);
+  }
+
+  .shadow-soft-lg {
+    box-shadow: var(--yb-shadow-lg);
+  }
+
+  .shadow-soft-hover {
+    box-shadow: var(--yb-shadow-hover);
+  }
+
+  .border-interaction-light {
+    border-color: var(--yb-border-light);
+  }
+
+  .border-interaction-soft {
+    border-color: var(--yb-border-soft);
+  }
+
+  .border-interaction-emphasis {
+    border-color: var(--yb-border-emphasis);
+  }
+
+  .rounded-premium-sm {
+    border-radius: var(--yb-radius-sm);
+  }
+
+  .rounded-premium-md {
+    border-radius: var(--yb-radius-md);
+  }
+
+  .rounded-premium-lg {
+    border-radius: var(--yb-radius-lg);
+  }
+
+  .rounded-premium-xl {
+    border-radius: var(--yb-radius-xl);
+  }
+
+  .transition-smooth-fast {
+    transition-duration: var(--yb-duration-fast);
+    transition-timing-function: var(--yb-ease-premium);
+  }
+
+  .transition-smooth-default {
+    transition-duration: var(--yb-duration-default);
+    transition-timing-function: var(--yb-ease-premium);
+  }
+
+  .transition-smooth-slow {
+    transition-duration: var(--yb-duration-slow);
+    transition-timing-function: var(--yb-ease-premium);
+  }
+
+  .focus-premium {
+    outline: none;
+  }
+
+  .focus-premium:focus-visible {
+    box-shadow: var(--yb-focus-ring);
+  }
+}
+
+@layer components {
+  .surface-premium {
+    border: 1px solid var(--yb-border-soft);
+    background: #fff;
+    border-radius: var(--yb-radius-lg);
+    box-shadow: var(--yb-shadow-md);
+  }
+
+  .button-premium {
+    display: inline-flex;
+    min-height: 48px;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: var(--yb-radius-full);
+    background: #1f1f1f;
+    color: #fff;
+    box-shadow: var(--yb-shadow-md);
+    font-weight: 600;
+    transition:
+      transform var(--yb-duration-fast) var(--yb-ease-premium),
+      box-shadow var(--yb-duration-fast) var(--yb-ease-premium),
+      background-color var(--yb-duration-fast) var(--yb-ease-premium);
+  }
+
+  .button-premium:hover {
+    transform: translateY(-2px);
+    background: #755839;
+    box-shadow: var(--yb-shadow-lg);
+  }
+
+  .button-premium:active {
+    transform: translateY(1px);
+    box-shadow: var(--yb-shadow-sm);
+  }
+
+  .button-premium svg {
+    transition: transform var(--yb-duration-fast) var(--yb-ease-premium);
+  }
+
+  .button-premium:hover svg {
+    transform: translateX(2px);
+  }
+
+  .card-premium {
+    overflow: hidden;
+    border: 1px solid var(--yb-border-soft);
+    border-radius: var(--yb-radius-lg);
+    background: #fff;
+    box-shadow: var(--yb-shadow-md);
+    transition:
+      transform var(--yb-duration-default) var(--yb-ease-premium),
+      box-shadow var(--yb-duration-default) var(--yb-ease-premium),
+      border-color var(--yb-duration-default) var(--yb-ease-premium);
+  }
+
+  .card-premium:hover {
+    transform: translateY(-6px);
+    border-color: var(--yb-border-emphasis);
+    box-shadow: var(--yb-shadow-hover);
+  }
+
+  .card-premium .image-premium {
+    transition:
+      transform var(--yb-duration-slow) var(--yb-ease-premium),
+      filter var(--yb-duration-slow) var(--yb-ease-premium);
+  }
+
+  .card-premium:hover .image-premium {
+    transform: scale(1.06);
+    filter: brightness(1.03);
+  }
+
+  .nav-link-premium {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    color: #5f5f5f;
+    transition:
+      color var(--yb-duration-fast) var(--yb-ease-premium),
+      transform var(--yb-duration-fast) var(--yb-ease-premium);
+  }
+
+  .nav-link-premium:hover {
+    color: #1f1f1f;
+    transform: translateY(-1px);
+  }
+
+  .nav-link-premium::after {
+    position: absolute;
+    right: 0;
+    bottom: -4px;
+    left: 0;
+    height: 1px;
+    content: "";
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--yb-duration-fast) var(--yb-ease-premium);
+  }
+
+  .nav-link-premium:hover::after,
+  .nav-link-premium:focus-visible::after,
+  .nav-link-premium[aria-current="page"]::after {
+    transform: scaleX(1);
+  }
+
+  .social-icon-premium {
+    display: inline-flex;
+    width: 44px;
+    height: 44px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--yb-border-soft);
+    border-radius: var(--yb-radius-full);
+    background: rgba(255, 255, 255, 0.72);
+    color: #5f5f5f;
+    box-shadow: var(--yb-shadow-xs);
+    transition:
+      transform var(--yb-duration-fast) var(--yb-ease-premium),
+      box-shadow var(--yb-duration-fast) var(--yb-ease-premium),
+      background-color var(--yb-duration-fast) var(--yb-ease-premium),
+      color var(--yb-duration-fast) var(--yb-ease-premium);
+  }
+
+  .social-icon-premium:hover {
+    transform: translateY(-2px) scale(1.05);
+    background: #f3ebdd;
+    color: #755839;
+    box-shadow: var(--yb-shadow-sm);
+  }
+
+  .chip-premium {
+    border: 1px solid var(--yb-border-light);
+    border-radius: var(--yb-radius-full);
+    background: #faf7f2;
+    box-shadow: var(--yb-shadow-xs);
+    transition:
+      transform 180ms var(--yb-ease-premium),
+      box-shadow 180ms var(--yb-ease-premium),
+      background-color 180ms var(--yb-ease-premium),
+      border-color 180ms var(--yb-ease-premium);
+  }
+
+  .chip-premium:hover {
+    transform: scale(1.02);
+    border-color: var(--yb-border-emphasis);
+    background: #f3ebdd;
+    box-shadow: var(--yb-shadow-sm);
+  }
+
+  .input-premium {
+    border: 1px solid var(--yb-border-soft);
+    border-radius: var(--yb-radius-md);
+    background: #fff;
+    box-shadow: var(--yb-shadow-xs);
+    transition:
+      border-color var(--yb-duration-fast) var(--yb-ease-premium),
+      box-shadow var(--yb-duration-fast) var(--yb-ease-premium),
+      background-color var(--yb-duration-fast) var(--yb-ease-premium);
+  }
+
+  .input-premium:hover {
+    border-color: var(--yb-border-emphasis);
+  }
+
+  .input-premium:focus {
+    border-color: #c6a87a;
+    box-shadow: var(--yb-focus-ring), var(--yb-shadow-sm);
+    outline: none;
+  }
+
+  .input-premium[aria-invalid="true"],
+  .input-premium.input-error {
+    border-color: #d99a91;
+    background: #fff8f7;
+  }
+
+  .input-premium.input-success {
+    border-color: #a9bd95;
+    background: #fbfdf8;
+  }
+
+  .skeleton-premium {
+    background: linear-gradient(90deg, #f5efe6 0%, #fbf7ef 48%, #f5efe6 100%);
+    background-size: 200% 100%;
+    animation: soft-shimmer 1.9s ease-in-out infinite;
+  }
+}
+
+@keyframes soft-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .button-premium:hover,
+  .card-premium:hover,
+  .nav-link-premium:hover,
+  .social-icon-premium:hover,
+  .chip-premium:hover {
+    transform: none;
+  }
+}
