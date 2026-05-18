@@ -778,6 +778,7 @@ def wordpress_publish_task(self, prev: dict):
             status=publish_status,
             social_image_url=pin_wp_url,
             social_image_id=pin_media_id,
+            pin_image_url=pin_wp_url,
         )
 
         state.save_artifact(job_id, "wp_post_id",  str(post["id"]))

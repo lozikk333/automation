@@ -127,6 +127,7 @@ class WordPressPublisher:
         status: str = "draft",
         social_image_url: str = "",
         social_image_id: int = 0,
+        pin_image_url: str = "",
     ) -> Dict:
         """
         Create a WordPress post as draft or publish immediately.
@@ -148,6 +149,9 @@ class WordPressPublisher:
                 "_automation_social_image": social_image_url,
                 "_automation_rss_image": social_image_url,
             })
+        if pin_image_url:
+            # Store the generated Pinterest pin image URL as a custom meta field
+            post_meta["pin_image_url"] = pin_image_url
         if social_image_id:
             post_meta.update({
                 "rank_math_facebook_image_id": str(social_image_id),
